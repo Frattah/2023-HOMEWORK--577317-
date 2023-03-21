@@ -41,6 +41,7 @@ public class DiaDia {
 		do		
 			istruzione = scannerDiLinee.nextLine();
 		while (!processaIstruzione(istruzione));
+		scannerDiLinee.close();
 	}   
 
 
@@ -52,12 +53,12 @@ public class DiaDia {
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire = new Comando(istruzione);
 
-		if (comandoDaEseguire.getNome().equals("fine")) {
+		if ("fine".equals(comandoDaEseguire.getNome())) {
 			this.fine(); 
 			return true;
-		} else if (comandoDaEseguire.getNome().equals("vai"))
+		} else if ("vai".equals(comandoDaEseguire.getNome()))
 			this.vai(comandoDaEseguire.getParametro());
-		else if (comandoDaEseguire.getNome().equals("aiuto"))
+		else if ("aiuto".equals(comandoDaEseguire.getNome()))
 			this.aiuto();
 		else
 			System.out.println("Comando sconosciuto");
@@ -88,8 +89,11 @@ public class DiaDia {
 			System.out.println("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
 		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-		if (prossimaStanza == null)
-			System.out.println("Direzione inesistente");
+		if (prossimaStanza == null) {
+			if (direzione != null) {
+				System.out.println("Direzione inesistente");
+			}
+		}
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getCfu();
