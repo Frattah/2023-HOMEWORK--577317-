@@ -120,9 +120,9 @@ public class Stanza {
     		if (direzione!=null)
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");
-    	for (Attrezzo attrezzo : this.attrezzi) {
-    		if (attrezzo != null)
-    		risultato.append(attrezzo.toString()+" ");
+    	for (int i = 0; i < numeroAttrezzi; i++) {
+    		if (attrezzi[i] != null)
+    			risultato.append(attrezzi[i].toString()+" ");
     	}
     	return risultato.toString();
     }
@@ -134,8 +134,8 @@ public class Stanza {
 	public boolean hasAttrezzo(String nomeAttrezzo) {
 		boolean trovato;
 		trovato = false;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
+		for (int i = 0; i < this.numeroAttrezzi; i++) {
+			if (attrezzi[i].getNome().equals(nomeAttrezzo))
 				trovato = true;
 		}
 		return trovato;
@@ -150,11 +150,17 @@ public class Stanza {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
-		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzo;
+		if(this.hasAttrezzo(nomeAttrezzo)) {
+			for (Attrezzo attrezzo : this.attrezzi) {
+				if (attrezzo.getNome().equals(nomeAttrezzo)) {
+					attrezzoCercato = attrezzo;
+					break;
+				}
+			}
 		}
-		return attrezzoCercato;	
+		else
+			System.out.println("Nessuno oggetto con questo nome");
+		return attrezzoCercato;
 	}
 
 	/**
@@ -163,7 +169,19 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		// TODO da implementare
+		Attrezzo daRimuovere = this.getAttrezzo(attrezzo.getNome());
+
+		if (daRimuovere != null) {
+			for (int i = 0; i < this.numeroAttrezzi; i++) {
+
+				if (daRimuovere == attrezzi[i]) {
+					for (; i < this.numeroAttrezzi - 1; i++)
+						this.attrezzi[i] = this.attrezzi[i + 1];
+					this.numeroAttrezzi--;
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 

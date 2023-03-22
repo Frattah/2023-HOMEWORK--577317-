@@ -24,10 +24,11 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine"};
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 
 	private Partita partita;
 
+	
 	public DiaDia() {
 		this.partita = new Partita();
 	}
@@ -40,7 +41,11 @@ public class DiaDia {
 		scannerDiLinee = new Scanner(System.in);		
 		do		
 			istruzione = scannerDiLinee.nextLine();
-		while (!processaIstruzione(istruzione));
+		while (!processaIstruzione(istruzione) && !partita.isFinita());
+		if (partita.isFinita()) {
+			System.out.println("Hai esaurito i cfu...");
+			this.fine();
+		}
 		scannerDiLinee.close();
 	}   
 
@@ -60,6 +65,10 @@ public class DiaDia {
 			this.vai(comandoDaEseguire.getParametro());
 		else if ("aiuto".equals(comandoDaEseguire.getNome()))
 			this.aiuto();
+		else if ("prendi".equals(comandoDaEseguire.getNome()))
+			this.prendi(comandoDaEseguire.getParametro());
+		else if ("posa".equals(comandoDaEseguire.getNome()))
+			this.posa(comandoDaEseguire.getParametro());
 		else
 			System.out.println("Comando sconosciuto");
 		if (this.partita.vinta()) {
@@ -96,10 +105,41 @@ public class DiaDia {
 		}
 		else {
 			this.partita.setStanzaCorrente(prossimaStanza);
-			int cfu = this.partita.getCfu();
-			this.partita.setCfu(cfu--);
+			int cfu = this.partita.getGiocatore().getCfu();
+			this.partita.getGiocatore().setCfu(--cfu);
 		}
 		System.out.println(partita.getStanzaCorrente().getDescrizione());
+	}
+	
+	/**
+	 * Prova a prendere un oggetto di una stanza, se non ci riesce
+	 * stampa un messaggio di errore, se riesce stampa a schermo il
+	 * contenuto attuale della borsa del giocatore
+	 */
+	private void prendi(String attrezzo) {
+		Attrezzo daPrendere = partita.getStanzaCorrente().getAttrezzo(attrezzo);
+		if (daPrendere != null) {
+			if(!partita.getGiocatore().getBorsa().addAttrezzo(daPrendere))
+				System.out.println("Non hai sufficiente spazio nella borsa");
+			else {
+				partita.getStanzaCorrente().removeAttrezzo(daPrendere);
+				System.out.println(partita.getGiocatore().getBorsa().toString());
+			}
+		}
+	}
+	
+	/**
+	 * Posa un oggetto della borsa nella stanza corrente, se l'oggetto è presente
+	 * nella borsa del giocatore, viene rimosso da essa e aggiunto alla stanza
+	 * altrimenti stampa un messaggio c'errore
+	 */
+	private void posa(String attrezzo) {
+		Attrezzo daPosare = partita.getGiocatore().getBorsa().getAttrezzo(attrezzo);
+		if (daPosare != null) {
+			partita.getStanzaCorrente().addAttrezzo(daPosare);
+			partita.getGiocatore().getBorsa().removeAttrezzo(attrezzo);
+			System.out.println(partita.getGiocatore().getBorsa().toString());
+		}
 	}
 
 	/**
