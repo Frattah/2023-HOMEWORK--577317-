@@ -1,3 +1,6 @@
+package it.uniroma3.diadia.giocatore;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
 /**
  * Classe che modella una borsa.
  * Contiene un array di attrezzi, ha un contatore che indica il numero

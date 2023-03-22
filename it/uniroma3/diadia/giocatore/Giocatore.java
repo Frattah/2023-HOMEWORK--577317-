@@ -1,3 +1,5 @@
+package it.uniroma3.diadia.giocatore;
+
 /**
  * Una semplice classe che modella un giocatore.
  * Ogni giocatore ha un numero iniziale di cfu che con il
