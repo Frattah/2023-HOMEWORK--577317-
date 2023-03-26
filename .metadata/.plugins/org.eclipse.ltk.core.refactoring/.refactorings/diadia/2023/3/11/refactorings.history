@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;Attrezzo.java&apos; to &apos;module-info.java&apos;&#x0A;- Original project: &apos;diadia&apos;&#x0A;- Destination element: &apos;module-info.java&apos;&#x0A;- Original element: &apos;Attrezzo.java&apos;&#x0A;- Update references to refactored element" description="Move file" destination="/src&lt;{module-info.java" element1="diadia/src/Attrezzo.java" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1678896442917" units="0" version="1.0"/>
-</session>
