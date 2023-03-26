@@ -39,12 +39,16 @@ public class Labirinto {
 		this.stanzaIniziale = atrio;
 		this.stanzaFinale = biblioteca;
 	}
-
+ 
+	public Stanza getStanzaIniziale() {
+		return stanzaIniziale;
+	}
+	
 	public Stanza getStanzaFinale() {
 		return stanzaFinale;
 	}
-	
-	public Stanza getStanzaIniziale() {
-		return stanzaIniziale;
+
+	public void setStanzaFinale(Stanza stanzaFinale) {
+		this.stanzaFinale = stanzaFinale;
 	}
 }

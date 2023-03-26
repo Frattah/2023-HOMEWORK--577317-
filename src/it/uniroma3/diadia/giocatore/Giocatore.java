@@ -31,4 +31,8 @@ public class Giocatore {
 	public int getCfu() {
 		return this.cfu;
 	}
+	
+	public int getCfuIniziali() {
+		return CFU_INIZIALI;
+	}
 }
