@@ -1,0 +1,36 @@
+package it.uniroma3.diadia.ambienti;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class LabirintoTest {
+	private Labirinto labirinto;
+
+	@BeforeEach
+	public void setUp() {
+		labirinto = new Labirinto();
+	}
+	
+	
+	private Stanza biblioteca() {
+		Stanza biblioteca = new Stanza("Biblioteca");
+		biblioteca.impostaStanzaAdiacente("sud", null);
+		return biblioteca;
+	}
+	
+	// getStanzaIniziale
+	@Test
+	void testGetStanzaIniziale() {
+		assertEquals(new Stanza("atrio"), labirinto.getStanzaIniziale(), "La stanza iniziale non è corretta");
+	}
+	
+	
+	// getStanzaFinale
+	@Test
+	void testGetStanzaFinale() {
+		assertEquals(, labirinto.getStanzaFinale(), "La stanza finale non è corretta!");
+	}
+
+}

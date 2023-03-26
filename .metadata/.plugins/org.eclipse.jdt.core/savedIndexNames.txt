@@ -1,0 +1,18 @@
+INDEX VERSION 1.131+/home/frattah/eclipse-workspace/.metadata/.plugins/org.eclipse.jdt.core
+3216780607.index
+1804604846.index
+1227907327.index
+1654039974.index
+2709042144.index
+759267547.index
+482363893.index
+2499622488.index
+1865797976.index
+3357481041.index
+2070089819.index
+422133236.index
+3740401431.index
+4072728026.index
+3119208633.index
+384887929.index
+1938147523.index

@@ -1,0 +1,43 @@
+package it.uniroma3.diadia.giocatore;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+class BorsaTest {
+	private int DEFAULT_PESO_MAX_BORSA = 10;
+	private Borsa risultato;
+	private Attrezzo attrezzoDiTest;
+	
+	@BeforeEach
+	public void setUp() {
+		risultato = new Borsa(DEFAULT_PESO_MAX_BORSA);
+		attrezzoDiTest = new Attrezzo("attrezzoDiTest", 5);
+	}
+	
+	private Borsa borsaPiena() {
+		risultato.addAttrezzo(attrezzoDiTest);
+		risultato.addAttrezzo(attrezzoDiTest);
+		return risultato;
+	}
+	
+	private Borsa borsaVuota() {
+		return risultato;
+	}
+	
+	
+	// getPesoMax #############################################################################################################################à
+	@Test
+	public void testGetPesoMaxConBorsaPiena() {
+		assertEquals(borsaPiena().getPesoMax(), DEFAULT_PESO_MAX_BORSA, "getPeso non restituisce il peso della borsa piena");
+	}
+	
+	@Test
+	public void testGetPesoMaxConBorsaVuota() {
+		assertEquals(borsaVuota().getPesoMax(), 0, "getPeso non restituisce il peso della borsa vuota")
+	}
+
+}

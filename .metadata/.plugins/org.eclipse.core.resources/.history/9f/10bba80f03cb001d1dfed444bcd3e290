@@ -1,0 +1,7 @@
+package it.uniroma3.diadia;
+
+import junit.framework.TestCase;
+
+public class PartitaTest extends TestCase {
+
+}

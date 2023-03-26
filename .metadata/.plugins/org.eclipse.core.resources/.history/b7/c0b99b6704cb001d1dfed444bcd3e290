@@ -1,0 +1,30 @@
+package it.uniroma3.diadia;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import it.uniroma3.diadia.giocatore.Giocatore;
+import it.uniroma3.diadia.ambienti.*;
+
+public class PartitaTest {
+	private Partita partitaTest;
+	
+	private Giocatore giocatoreSenzaCfu() {
+		Giocatore risultato = new Giocatore();
+		risultato.setCfu(0);
+		return risultato;
+	}
+	
+	@BeforeEach
+	private void SetUp () {
+		
+	}
+	
+	// isFinita
+	@Test
+	private void testIsFinitaConGiocatoreSenzaCfu() {
+		assertTrue()
+	}
+}

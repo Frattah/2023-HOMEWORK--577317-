@@ -1,0 +1,30 @@
+package it.uniroma3.diadia;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import it.uniroma3.diadia.giocatore.Giocatore;
+import it.uniroma3.diadia.ambienti.*;
+
+public class PartitaTest {
+	private Partita partitaTest;
+	
+	@BeforeEach
+	private void SetUp () {
+		partitaTest = new Partita();
+	}
+	
+	// isFinita
+	@Test
+	private void testIsFinitaConGiocatoreSenzaCfu() {
+		partitaTest.getGiocatore().setCfu(0);
+		assertTrue(partitaTest.isFinita());
+	}
+	
+	private void testIsFinitaConStanzaCorrenteStanzaFinale() {
+		partitaTest.setStanzaCorrente(partitaTest.getLabirinto().getStanzaFinale());
+		assertTrue(partitaTest.isFinita());
+	}
+}

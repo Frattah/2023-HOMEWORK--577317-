@@ -1,0 +1,24 @@
+package it.uniroma3.diadia;
+
+import junit.framework.TestCase;
+
+import it.uniroma3.diadia.giocatore.Giocatore;
+
+import org.junit.*;
+
+import it.uniroma3.diadia.ambienti.*;
+
+public class PartitaTest extends TestCase {
+	
+	private Giocatore giocatoreSenzaCfu() {
+		Giocatore risultato = new Giocatore();
+		risultato.setCfu(0);
+		return risultato;
+	}
+	
+	// isFinita
+	@Test
+	private void testIsFinitaConGiocatoreSenzaCfu() {
+		assertEqual
+	}
+}
