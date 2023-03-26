@@ -23,7 +23,7 @@ public class Stanza {
     private Stanza[] stanzeAdiacenti;
     private int numeroStanzeAdiacenti;
 	private String[] direzioni;
-    
+	
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
      * @param nome il nome della stanza
@@ -37,25 +37,40 @@ public class Stanza {
         this.attrezzi = new Attrezzo[NUMERO_MASSIMO_ATTREZZI];
     }
 
+    public int maxNumeroAttrezzi() {
+    	return NUMERO_MASSIMO_ATTREZZI;
+    }
+    
+    public int maxNumeroDirezioni() {
+    	return NUMERO_MASSIMO_DIREZIONI;
+    }
+    
+    public int getNumeroStanzeAdiacenti() {
+    	return numeroStanzeAdiacenti;
+    }
     /**
      * Imposta una stanza adiacente.
      *
      * @param direzione direzione in cui sara' posta la stanza adiacente.
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
-    public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+    public boolean impostaStanzaAdiacente(String direzione, Stanza stanza) {
         boolean aggiornato = false;
     	for(int i=0; i<this.direzioni.length; i++)
         	if (direzione.equals(this.direzioni[i])) {
         		this.stanzeAdiacenti[i] = stanza;
         		aggiornato = true;
         	}
-    	if (!aggiornato)
+    	if (!aggiornato) {
     		if (this.numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
     			this.direzioni[numeroStanzeAdiacenti] = direzione;
     			this.stanzeAdiacenti[numeroStanzeAdiacenti] = stanza;
     		    this.numeroStanzeAdiacenti++;
     		}
+    		else
+    			return false;
+    	}
+    	return true;
     }
 
     /**
@@ -64,9 +79,10 @@ public class Stanza {
      */
 	public Stanza getStanzaAdiacente(String direzione) {
         Stanza stanza = null;
-		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
+		for(int i=0; i<this.numeroStanzeAdiacenti; i++) {
         	if (this.direzioni[i].equals(direzione))
         		stanza = this.stanzeAdiacenti[i];
+		}
         return stanza;
 	}
 
@@ -190,6 +206,8 @@ public class Stanza {
 
 
 	public String[] getDirezioni() {
+		if (this.numeroStanzeAdiacenti <= 0)
+				return null;
 		String[] direzioni = new String[this.numeroStanzeAdiacenti];
 	    for(int i=0; i<this.numeroStanzeAdiacenti; i++)
 	    	direzioni[i] = this.direzioni[i];

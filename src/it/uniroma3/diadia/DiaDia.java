@@ -45,10 +45,9 @@ public class DiaDia {
 		do		
 			istruzione = scannerDiLinee.nextLine();
 		while (!processaIstruzione(istruzione) && !partita.isFinita());
-		if (partita.isFinita()) {
+		if (partita.getGiocatore().getCfu() <= 0)
 			System.out.println("Hai esaurito i cfu...");
-			this.fine();
-		}
+		this.fine();
 		scannerDiLinee.close();
 	}   
 

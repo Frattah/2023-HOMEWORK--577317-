@@ -20,6 +20,10 @@ public class Partita {
 		this.finita = false;
 		this.stanzaCorrente = labirinto.getStanzaIniziale();
 	}
+	
+	public Labirinto getLabirinto() {
+		return labirinto;
+	}
 
 	public Stanza getStanzaVincente() {
 		return labirinto.getStanzaFinale();
