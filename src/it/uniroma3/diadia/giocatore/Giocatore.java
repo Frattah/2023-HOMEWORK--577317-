@@ -14,10 +14,11 @@ package it.uniroma3.diadia.giocatore;
 public class Giocatore {
 	static final private int CFU_INIZIALI = 20;
 	private int cfu;
-	private Borsa borsa = new Borsa();
+	private Borsa borsa;
 	
 	public Giocatore () {
 		this.cfu = CFU_INIZIALI;
+		borsa  = new Borsa();
 	}
 	
 	public Borsa getBorsa() {

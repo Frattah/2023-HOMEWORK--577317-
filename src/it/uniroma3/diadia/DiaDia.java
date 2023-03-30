@@ -26,29 +26,28 @@ public class DiaDia {
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
-	
+
 	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 
 	private Partita partita;
 
-	
+	private IOConsole inputOutputManager;
+
 	public DiaDia() {
 		this.partita = new Partita();
+		this.inputOutputManager = new IOConsole();
 	}
 
 	public void gioca() {
 		String istruzione; 
-		Scanner scannerDiLinee;
 
-		System.out.println(MESSAGGIO_BENVENUTO);
-		scannerDiLinee = new Scanner(System.in);		
+		this.inputOutputManager.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do		
-			istruzione = scannerDiLinee.nextLine();
+			istruzione = this.inputOutputManager.leggiRiga();
 		while (!processaIstruzione(istruzione) && !partita.isFinita());
 		if (partita.getGiocatore().getCfu() <= 0)
-			System.out.println("Hai esaurito i cfu...");
+			this.inputOutputManager.mostraMessaggio("Hai esaurito i cfu...");
 		this.fine();
-		scannerDiLinee.close();
 	}   
 
 
@@ -72,9 +71,9 @@ public class DiaDia {
 		else if ("posa".equals(comandoDaEseguire.getNome()))
 			this.posa(comandoDaEseguire.getParametro());
 		else
-			System.out.println("Comando sconosciuto");
+			this.inputOutputManager.mostraMessaggio("Comando sconosciuto");
 		if (this.partita.vinta()) {
-			System.out.println("Hai vinto!");
+			this.inputOutputManager.mostraMessaggio("Hai vinto!");
 			return true;
 		} else
 			return false;
@@ -87,8 +86,8 @@ public class DiaDia {
 	 */
 	private void aiuto() {
 		for(int i=0; i< elencoComandi.length; i++) 
-			System.out.print(elencoComandi[i]+" ");
-		System.out.println();
+			this.inputOutputManager.mostraMessaggio(elencoComandi[i]+" ");
+		this.inputOutputManager.mostraMessaggio(null);
 	}
 
 	/**
@@ -97,12 +96,12 @@ public class DiaDia {
 	 */
 	private void vai(String direzione) {
 		if(direzione==null)
-			System.out.println("Dove vuoi andare ?");
+			this.inputOutputManager.mostraMessaggio("Dove vuoi andare ?");
 		Stanza prossimaStanza = null;
 		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null) {
 			if (direzione != null) {
-				System.out.println("Direzione inesistente");
+				this.inputOutputManager.mostraMessaggio("Direzione inesistente");
 			}
 		}
 		else {
@@ -110,9 +109,9 @@ public class DiaDia {
 			int cfu = this.partita.getGiocatore().getCfu();
 			this.partita.getGiocatore().setCfu(--cfu);
 		}
-		System.out.println(partita.getStanzaCorrente().getDescrizione());
+		this.inputOutputManager.mostraMessaggio(partita.getStanzaCorrente().getDescrizione());
 	}
-	
+
 	/**
 	 * Prova a prendere un oggetto di una stanza, se non ci riesce
 	 * stampa un messaggio di errore, se riesce stampa a schermo il
@@ -122,14 +121,16 @@ public class DiaDia {
 		Attrezzo daPrendere = partita.getStanzaCorrente().getAttrezzo(attrezzo);
 		if (daPrendere != null) {
 			if(!partita.getGiocatore().getBorsa().addAttrezzo(daPrendere))
-				System.out.println("Non hai sufficiente spazio nella borsa");
+				this.inputOutputManager.mostraMessaggio("Non hai sufficiente spazio nella borsa");
 			else {
 				partita.getStanzaCorrente().removeAttrezzo(daPrendere);
-				System.out.println(partita.getGiocatore().getBorsa().toString());
+				this.inputOutputManager.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 			}
 		}
+		else
+			this.inputOutputManager.mostraMessaggio("Nessuno oggetto con questo nome");
 	}
-	
+
 	/**
 	 * Posa un oggetto della borsa nella stanza corrente, se l'oggetto è presente
 	 * nella borsa del giocatore, viene rimosso da essa e aggiunto alla stanza
@@ -140,15 +141,17 @@ public class DiaDia {
 		if (daPosare != null) {
 			partita.getStanzaCorrente().addAttrezzo(daPosare);
 			partita.getGiocatore().getBorsa().removeAttrezzo(attrezzo);
-			System.out.println(partita.getGiocatore().getBorsa().toString());
+			this.inputOutputManager.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 		}
+		else
+			this.inputOutputManager.mostraMessaggio("Nessuno oggetto con questo nome");
 	}
 
 	/**
 	 * Comando "Fine".
 	 */
 	private void fine() {
-		System.out.println("Grazie di aver giocato!");  // si desidera smettere
+		this.inputOutputManager.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
 	}
 
 	public static void main(String[] argc) {

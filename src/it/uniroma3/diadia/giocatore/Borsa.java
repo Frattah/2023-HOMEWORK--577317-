@@ -46,8 +46,6 @@ public class Borsa {
 		for (int i= 0; i<this.numeroAttrezzi; i++)
 			if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
 				a = attrezzi[i];
-		if (a == null)
-			System.out.println("Nessuno oggetto con questo nome");
 		return a;
 	}
 	

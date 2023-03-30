@@ -7,209 +7,203 @@ import org.junit.jupiter.api.BeforeEach;
 import it.uniroma3.diadia.attrezzi.*;
 
 class StanzaTest {
-	private Stanza risultato;
-	private Stanza adiacente;
-	
+	private Stanza vuota;
+
 	@BeforeEach
 	public void SetUp() {
-		risultato = new Stanza("stanzaDiTest");
-		adiacente = new Stanza("adiacenteDiTest");
+		vuota = new Stanza("stanzaDiTest");
 	}
-	
+
 	// Factory Methods
 	private Attrezzo attrezzoDiTest(int i) {
 		Attrezzo risultato = new Attrezzo("attrezzoDiTest" + i, 1);
 		return risultato;
 	}
-	
+
 	private Stanza stanzaMaxAdiacenti() {
-		for (int i = 0; i < risultato.maxNumeroDirezioni(); i++)
-			risultato.impostaStanzaAdiacente("direzioneDiTest"+i,adiacente);
-		return risultato;
+		for (int i = 0; i < vuota.maxNumeroDirezioni(); i++)
+			this.vuota.impostaStanzaAdiacente("direzioneDiTest"+i,new Stanza("adiacenteDiTest"));
+		return vuota;
 	}
-	
-	private Stanza stanzaNoAdiacentiNoAttrezzi() {
-		return risultato;
-	}
-	
+
 	private Stanza stanzaSingletonAdiacenti() {
-		risultato.impostaStanzaAdiacente("direzione0", adiacente);
-		return risultato;
+		this.vuota.impostaStanzaAdiacente("direzione0", new Stanza("adiacenteDiTest"));
+		return vuota;
 	}
-	
+
 	private Stanza stanzaMaxAttrezzi() {
-		for (int i = 0; i < risultato.maxNumeroAttrezzi(); i++)
-			risultato.addAttrezzo(attrezzoDiTest(i));
-		return risultato;
+		for (int i = 0; i < vuota.maxNumeroAttrezzi(); i++)
+			this.vuota.addAttrezzo(attrezzoDiTest(i));
+		return vuota;
 	}
-	
+
 	private Stanza stanzaSingletonAttrezzi() {
-		risultato.addAttrezzo(attrezzoDiTest(0));
-		return risultato;
+		this.vuota.addAttrezzo(attrezzoDiTest(0));
+		return vuota;
 	}
-	
+
 	// impostaStanzaAdiacente ##############################################################################################
 	@Test
 	public void testImpostaStanzaAdiacenteConStanzaMaxAdiacenti() {
-		assertFalse(stanzaMaxAdiacenti().impostaStanzaAdiacente("stanzaDiTroppo", adiacente));
+		assertFalse(stanzaMaxAdiacenti().impostaStanzaAdiacente("stanzaDiTroppo", new Stanza("adiacenteDiTest")));
 	}
-	
+
 	@Test
 	public void testImpostaStanzaAdiacenteConStanzaNoAdiacentiNoAttrezzi() {
-		assertTrue(stanzaNoAdiacentiNoAttrezzi().impostaStanzaAdiacente("stanzaNuova", adiacente));
+		assertTrue(this.vuota.impostaStanzaAdiacente("stanzaNuova", new Stanza("adiacenteDiTest")));
 	}
-	
+
 	@Test
 	public void testImpostaStanzaAdiacenteIfDirezioneGiàPresente() {
-		assertTrue(stanzaSingletonAdiacenti().impostaStanzaAdiacente("direzione0", adiacente));
+		assertTrue(stanzaSingletonAdiacenti().impostaStanzaAdiacente("direzione0", new Stanza("adiacenteDiTest")));
 		assertEquals(1, stanzaSingletonAdiacenti().getNumeroStanzeAdiacenti(), "L'array di adiacenti viene modificato se una direzione era già presente");
 	}
-	
-	
+
+
 	// getStanzaAdiacente ##################################################################################################
 	@Test
 	public void testGetStanzaAdiacenteConStanzaNoAdiacenti() {
-		assertNull(stanzaNoAdiacentiNoAttrezzi().getStanzaAdiacente("direzioneDiTest3"));
+		assertNull(this.vuota.getStanzaAdiacente("direzioneDiTest3"));
 	}
-	
+
 	@Test
 	public void testGetStanzaAdiacenteConStanzaMaxAdiacenti() {
 		assertNotNull(stanzaMaxAdiacenti().getStanzaAdiacente("direzioneDiTest0"));
 	}
-	
-	
+
+
 	// getAttrezzo #########################################################################################################
 	@Test
 	public void testGetAttrezzoConStanzaNoAdiacentiNoAttrezzi() {
-		assertNull(stanzaNoAdiacentiNoAttrezzi().getAttrezzo("attrezzoDiTest1"));
+		assertNull(this.vuota.getAttrezzo("attrezzoDiTest1"));
 	}
-	
+
 	@Test
 	public void testGetAttrezzoConStanzaMaxAttrezzi() {
 		assertNotNull(stanzaMaxAttrezzi().getAttrezzo("attrezzoDiTest3"));
 	}
-	
+
 	@Test
 	public void testGetAttrezzoIfAttrezzoAssente() {
 		assertNull(stanzaMaxAttrezzi().getAttrezzo("attrezzoAssente"));
 	}
-	
+
 	@Test
 	public void testGetAttrezzoConStanzaSingletoAttrezzi() {
 		assertNotNull(stanzaSingletonAttrezzi().getAttrezzo("attrezzoDiTest0"));
 	}
-	
-	
+
+
 	// addAttrezzo #########################################################################################################
 	@Test
 	public void testAddAttrezzoConStanzaNoAdiacentiNoAttrezzi() {
-		assertTrue(stanzaNoAdiacentiNoAttrezzi().addAttrezzo(attrezzoDiTest(0)));
+		assertTrue(this.vuota.addAttrezzo(attrezzoDiTest(0)));
 	}
-	
+
 	@Test
 	public void testAddAttrezzoConMaxAttrezzi() {
 		assertFalse(stanzaMaxAttrezzi().addAttrezzo(attrezzoDiTest(10)));
 	}
-	
-	
+
+
 	// removeAttrezzo ######################################################################################################
 	@Test
 	public void testRemoveAttrezzoConStanzaNoAdiacentiNoAttrezzi() {
-		assertFalse(stanzaNoAdiacentiNoAttrezzi().removeAttrezzo(attrezzoDiTest(2)));
+		assertFalse(this.vuota.removeAttrezzo(attrezzoDiTest(2)));
 	}
-	
+
 	@Test
 	public void testRemoveAttrezzoConStanzaMaxAttrezzi() {
 		assertTrue(stanzaMaxAttrezzi().removeAttrezzo(attrezzoDiTest(1)));
 	}
-	
+
 	@Test
 	public void testRemoveAttrezzoConSigletonAttrezzi() {
 		assertTrue(stanzaSingletonAttrezzi().removeAttrezzo(attrezzoDiTest(0)));
 	}
-	
-	
+
+
 	// getDirezioni ########################################################################################################
 	@Test
 	public void testGetDirezioniConStanzaNoAdiacentiNoAttrezzi() {
-		assertNull(stanzaNoAdiacentiNoAttrezzi().getDirezioni());
+		assertNull(this.vuota.getDirezioni());
 	}
-	
+
 	@Test
 	public void testGetDirezioniConStanzaMaxAdiacenti() {
 		assertNotNull(stanzaMaxAdiacenti().getDirezioni());
 	}
-	
+
 	@Test
 	public void testGetDirezioniIfRestituisceArrayCorretto() {
 		assertEquals(stanzaMaxAdiacenti().getDirezioni()[2], "direzioneDiTest2", "L'array di direzioni è sbagliato");
 	}
-	
-	
+
+
 	// getNome #############################################################################################################
 	@Test
 	public void testgetNomeConStanzaMaxAdiacenti() {
 		assertEquals(stanzaMaxAdiacenti().getNome(), "stanzaDiTest", "Il nome della stanza non corrisponde");
 	}
-	
-	
+
+
 	// getAttrezzi #########################################################################################################
 	@Test
 	public void testGetAttrezziIfRestituisceArrayCorretto() {
 		assertEquals(stanzaMaxAttrezzi().getAttrezzi()[4].getNome(), "attrezzoDiTest4", "L'array di attrezzi è sbagliato");
 	}
-	
+
 	@Test
 	public void testGetAttrezziConStanzaNoAdiacentiNoAttrezzi() {
-		assertNull(stanzaNoAdiacentiNoAttrezzi().getAttrezzi()[0]);
+		assertNull(this.vuota.getAttrezzi()[0]);
 	}
-	
-	
+
+
 	// hasAttrezzo #########################################################################################################
 	@Test
 	public void testHasAttrezzoConStanzaNoAdiacentiNoAttrezzi() {
-		assertFalse(stanzaNoAdiacentiNoAttrezzi().hasAttrezzo("attrezzoDiTest1"));
+		assertFalse(this.vuota.hasAttrezzo("attrezzoDiTest1"));
 	}
-	
+
 	@Test
 	public void testHasAttrezzoConStanzaSignletonAttrezzi() {
 		assertTrue(stanzaSingletonAttrezzi().hasAttrezzo("attrezzoDiTest0"));
 	}
-	
+
 	@Test
 	public void testHasAttrezzoConStanzaMaxAttrezzi() {
 		assertFalse(stanzaMaxAttrezzi().hasAttrezzo("attrezzoDiTest10"));
 	}
-	
-	
+
+
 	// toString ############################################################################################################
 	@Test
 	public void testToStringConStanzaNoAdiacentiNoAttrezzi() {
-		assertNotNull(stanzaNoAdiacentiNoAttrezzi().toString());
+		assertNotNull(this.vuota.toString());
 	}
-	
+
 	@Test
 	public void testToStringConStanzaMaxAdiacenti() {
 		assertNotNull(stanzaMaxAdiacenti().toString());
 	}
-	
+
 	@Test
 	public void testToStringConStanzaMaxAttrezzi() {
 		assertNotNull(stanzaMaxAttrezzi().toString());
 	}
-	
+
 	@Test
 	public void testToStringConStanzaSingletonAttrezzi() {
 		assertNotNull(stanzaSingletonAttrezzi().toString());
 	}
-	
-	
+
+
 	// getDescrizione #######################################################################################################
 	@Test
 	public void testGetDescrizioneConStanzaAdiacentiNoAttrezzi() {
-		assertNotNull(stanzaNoAdiacentiNoAttrezzi().getDescrizione());
+		assertNotNull(this.vuota.getDescrizione());
 	}
-	
+
 	@Test
 	public void testGetDescrizioneConStanzaSingletonAttrezzi() {
 		assertNotNull(stanzaSingletonAttrezzi().getDescrizione());

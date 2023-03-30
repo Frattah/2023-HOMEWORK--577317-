@@ -177,8 +177,6 @@ public class Stanza {
 				}
 			}
 		}
-		else
-			System.out.println("Nessuno oggetto con questo nome");
 		return attrezzoCercato;
 	}
 
