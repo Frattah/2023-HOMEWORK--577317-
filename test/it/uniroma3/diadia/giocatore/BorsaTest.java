@@ -120,4 +120,9 @@ class BorsaTest {
 	public void testHasAttrezzoConBorsaVuota() {
 		assertFalse(borsaVuota().hasAttrezzo("attrezzoDiTest"));
 	}
+	
+	@Test
+	public void testHasAttrezzoIfAttrezzoAssente() {
+		assertFalse(borsaPiena().hasAttrezzo("attrezzoAssente"));
+	}
 }
