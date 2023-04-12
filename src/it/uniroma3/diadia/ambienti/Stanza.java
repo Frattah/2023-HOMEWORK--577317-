@@ -133,7 +133,7 @@ public class Stanza {
 	*/
     public String toString() {
     	StringBuilder risultato = new StringBuilder();
-    	risultato.append(this.nome);
+    	risultato.append("\n* " + this.nome + " *");
     	risultato.append("\nUscite: ");
     	for (String direzione : this.direzioni)
     		if (direzione!=null)
@@ -143,6 +143,7 @@ public class Stanza {
     		if (attrezzi[i] != null)
     			risultato.append(attrezzi[i].toString()+" ");
     	}
+    	risultato.append("\n------------------------------------");
     	return risultato.toString();
     }
 
