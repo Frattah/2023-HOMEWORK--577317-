@@ -12,23 +12,23 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * @version base
 */
 
-public class Stanza {
+public class StanzaProtected {
 	
-	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
-	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
+	static final protected int NUMERO_MASSIMO_DIREZIONI = 4;
+	static final protected int NUMERO_MASSIMO_ATTREZZI = 10;
 	
-	private String nome;
-    private Attrezzo[] attrezzi;
-    private int numeroAttrezzi;
-    private Stanza[] stanzeAdiacenti;
-    private int numeroStanzeAdiacenti;
-	private String[] direzioni;
+	protected String nome;
+    protected Attrezzo[] attrezzi;
+    protected int numeroAttrezzi;
+    protected Stanza[] stanzeAdiacenti;
+    protected int numeroStanzeAdiacenti;
+	protected String[] direzioni;
 	
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
      * @param nome il nome della stanza
      */
-    public Stanza(String nome) {
+    public StanzaProtected(String nome) {
         this.nome = nome;
         this.numeroStanzeAdiacenti = 0;
         this.numeroAttrezzi = 0;
@@ -46,13 +46,8 @@ public class Stanza {
     }
     
     public int getNumeroStanzeAdiacenti() {
-    	return this.numeroStanzeAdiacenti;
+    	return numeroStanzeAdiacenti;
     }
-    
-    public int getNumeroAttrezzi() {
-    	return this.numeroAttrezzi;
-    }
-
     /**
      * Imposta una stanza adiacente.
      *
@@ -148,8 +143,6 @@ public class Stanza {
     		if (attrezzi[i] != null)
     			risultato.append(attrezzi[i].toString()+" ");
     	}
-    	if (this.numeroAttrezzi == 0)
-    			risultato.append("nessun attrezzo");
     	risultato.append("\n------------------------------------");
     	return risultato.toString();
     }

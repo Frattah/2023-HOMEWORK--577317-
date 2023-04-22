@@ -21,15 +21,15 @@ public class ComandoPrendi implements Comando{
 	public void esegui(Partita partita) {
 		Attrezzo daPrendere = partita.getStanzaCorrente().getAttrezzo(attrezzo);
 		if (daPrendere != null) {
-			if(!partita.getGiocatore().getBorsa().addAttrezzo(daPrendere))
+			if(!partita.getGiocatore().getBorsa().addAttrezzo(daPrendere) && io != null)
 				io.mostraMessaggio("Non hai sufficiente spazio nella borsa\n");
 			else {
 				partita.getStanzaCorrente().removeAttrezzo(daPrendere);
-				io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
+				if (io != null)	io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
 			}
 		}
 		else
-			io.mostraMessaggio("Nessuno oggetto con questo nome\n");
+			if (io != null)	io.mostraMessaggio("Nessuno oggetto con questo nome\n");
 	}
 
 	@Override

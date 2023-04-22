@@ -23,10 +23,12 @@ public class ComandoPosa implements Comando{
 		if (daPosare != null) {
 			partita.getStanzaCorrente().addAttrezzo(daPosare);
 			partita.getGiocatore().getBorsa().removeAttrezzo(attrezzo);
-			io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
+			if (io != null)
+				io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
 		}
 		else
-			io.mostraMessaggio("Nessuno oggetto con questo nome\n");
+			if (io != null)
+				io.mostraMessaggio("Nessuno oggetto con questo nome\n");
 	}
 
 	@Override

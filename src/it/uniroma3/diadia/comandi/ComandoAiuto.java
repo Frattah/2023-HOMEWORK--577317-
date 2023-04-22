@@ -23,7 +23,7 @@ public class ComandoAiuto implements Comando{
 		io.mostraMessaggio("Comandi: ");
 		for(int i=0; i< elencoComandi.length; i++) 
 			io.mostraMessaggio(elencoComandi[i]+" ");
-		io.mostraMessaggio(null);
+		io.mostraMessaggio("\n");
 	}
 
 	@Override

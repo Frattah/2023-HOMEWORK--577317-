@@ -9,7 +9,7 @@ public class ComandoGuarda implements Comando {
 
 	@Override
 	public void esegui(Partita partita) {
-		io.mostraMessaggio(partita.getStanzaCorrente().toString()+"\n");
+		io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione()+"\n");
 		io.mostraMessaggio("Cfu: " + partita.getGiocatore().getCfu()+"\n");
 	}
 
