@@ -68,8 +68,8 @@ public class Stanza {
         	}
     	if (!aggiornato) {
     		if (this.numeroStanzeAdiacenti < NUMERO_MASSIMO_DIREZIONI) {
-    			this.direzioni[numeroStanzeAdiacenti] = direzione;
-    			this.stanzeAdiacenti[numeroStanzeAdiacenti] = stanza;
+    			this.direzioni[this.numeroStanzeAdiacenti] = direzione;
+    			this.stanzeAdiacenti[this.numeroStanzeAdiacenti] = stanza;
     		    this.numeroStanzeAdiacenti++;
     		}
     		else
@@ -84,10 +84,9 @@ public class Stanza {
      */
 	public Stanza getStanzaAdiacente(String direzione) {
         Stanza stanza = null;
-		for(int i=0; i<this.numeroStanzeAdiacenti; i++) {
+		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
         	if (this.direzioni[i].equals(direzione))
-        		stanza = this.stanzeAdiacenti[i];
-		}
+        		return this.stanzeAdiacenti[i];
         return stanza;
 	}
 
@@ -122,8 +121,7 @@ public class Stanza {
      */
     public boolean addAttrezzo(Attrezzo attrezzo) {
         if (this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
-        	this.attrezzi[numeroAttrezzi] = attrezzo;
-        	this.numeroAttrezzi++;
+        	this.attrezzi[this.numeroAttrezzi++] = attrezzo;
         	return true;
         }
         else {
@@ -177,14 +175,10 @@ public class Stanza {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
-		if(this.hasAttrezzo(nomeAttrezzo)) {
-			for (Attrezzo attrezzo : this.attrezzi) {
-				if (attrezzo.getNome().equals(nomeAttrezzo)) {
-					attrezzoCercato = attrezzo;
-					break;
-				}
-			}
-		}
+		if(this.hasAttrezzo(nomeAttrezzo))
+			for (int i = 0; i < this.numeroAttrezzi; i++)
+				if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
+					return this.attrezzi[i];
 		return attrezzoCercato;
 	}
 
@@ -198,7 +192,6 @@ public class Stanza {
 
 		if (daRimuovere != null) {
 			for (int i = 0; i < this.numeroAttrezzi; i++) {
-
 				if (daRimuovere == attrezzi[i]) {
 					for (; i < this.numeroAttrezzi - 1; i++)
 						this.attrezzi[i] = this.attrezzi[i + 1];

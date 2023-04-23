@@ -21,21 +21,21 @@ public class ComandoVai implements Comando {
 	public void esegui(Partita partita) {
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;
-		if (direzione == null) {
-			if (io != null) io.mostraMessaggio("Dove vuoi andare?\nDevi specificare una direzione\n");
+		if (this.direzione == null) {
+			if (this.io != null) this.io.mostraMessaggio("Dove vuoi andare?\nDevi specificare una direzione\n");
 			return;
 		}
 		if (stanzaCorrente == stanzaCorrente.getStanzaAdiacente(this.direzione)) {
-			if (io != null) io.mostraMessaggio("La direzione sembra bloccata...\n");
+			if (this.io != null) this.io.mostraMessaggio("La direzione sembra bloccata...\n");
 			return;
 		}
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 		if (prossimaStanza == null) {
-			if (io != null) io.mostraMessaggio("Direzione inesistente\n");
+			if (this.io != null) this.io.mostraMessaggio("Direzione inesistente\n");
 			return;
 		}
 		partita.setStanzaCorrente(prossimaStanza);
-		if (io != null) io.mostraMessaggio("* "+partita.getStanzaCorrente().getNome()+" *\n");
+		if (this.io != null) this.io.mostraMessaggio("* "+partita.getStanzaCorrente().getNome()+" *\n");
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu() - 1);
 	}
 	

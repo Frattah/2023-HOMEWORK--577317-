@@ -19,15 +19,15 @@ public class ComandoPosa implements Comando{
 	
 	@Override
 	public void esegui(Partita partita) {
-		Attrezzo daPosare = partita.getGiocatore().getBorsa().getAttrezzo(attrezzo);
+		Attrezzo daPosare = partita.getGiocatore().getBorsa().getAttrezzo(this.attrezzo);
 		if (daPosare != null) {
 			partita.getStanzaCorrente().addAttrezzo(daPosare);
-			partita.getGiocatore().getBorsa().removeAttrezzo(attrezzo);
-			if (io != null)
-				io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
+			partita.getGiocatore().getBorsa().removeAttrezzo(this.attrezzo);
+			if (this.io != null)
+				this.io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
 		}
 		else
-			if (io != null)
+			if (this.io != null)
 				io.mostraMessaggio("Nessuno oggetto con questo nome\n");
 	}
 

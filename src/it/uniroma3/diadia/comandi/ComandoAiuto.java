@@ -9,21 +9,21 @@ public class ComandoAiuto implements Comando{
 	private String[] elencoComandi;
 	
 	public ComandoAiuto() {
-		elencoComandi = new String[6];
-		elencoComandi[0] = "aiuto";
-		elencoComandi[1] = "vai";
-		elencoComandi[2] = "fine";
-		elencoComandi[3] = "prendi";
-		elencoComandi[4] = "posa";
-		elencoComandi[5] = "guarda";
+		this.elencoComandi = new String[6];
+		this.elencoComandi[0] = "aiuto";
+		this.elencoComandi[1] = "vai";
+		this.elencoComandi[2] = "fine";
+		this.elencoComandi[3] = "prendi";
+		this.elencoComandi[4] = "posa";
+		this.elencoComandi[5] = "guarda";
 	}
 	
 	@Override
 	public void esegui(Partita partita) {
-		io.mostraMessaggio("Comandi: ");
-		for(int i=0; i< elencoComandi.length; i++) 
-			io.mostraMessaggio(elencoComandi[i]+" ");
-		io.mostraMessaggio("\n");
+		this.io.mostraMessaggio("Comandi: ");
+		for(int i=0; i< this.elencoComandi.length; i++) 
+			this.io.mostraMessaggio(this.elencoComandi[i]+" ");
+		this.io.mostraMessaggio("\n");
 	}
 
 	@Override
