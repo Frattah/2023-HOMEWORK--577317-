@@ -78,7 +78,7 @@ class testAccettazione {
 	
 	@Test
 	public void testMovimento() {
-		setComandi("vai sud", "vai sud", "vai est");
+		setComandi("vai est", "vai nord", "vai sud", "vai est");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
 		assertEquals("aulaN18", partita.getStanzaCorrente().getNome());
@@ -86,7 +86,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRaccoltaOggetto() {
-		setComandi("vai est", "vai est", "prendi chiave");
+		setComandi("vai sud", "vai ovest", "vai nord", "prendi chiave");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Laboratorio Campus", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo("chiave"));
@@ -94,8 +94,9 @@ class testAccettazione {
 	
 	@Test
 	public void testPosaOggetto() {
-		setComandi("prendi osso", "vai sud", "vai sud", "posa osso");
+		setComandi("prendi osso", "vai sud", "vai ovest", "posa osso");
 		eseguiComandi(partita, this.comandi);
+		assertEquals("LabIA", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
 	}
 	
@@ -103,16 +104,15 @@ class testAccettazione {
 	public void testSbloccoUfficioVittoria() {
 		setComandi("vai est", "guarda", "vai nord", "guarda", "vai ovest", 
 					"guarda", "vai sud", "vai ovest", "vai ovest", "guarda", 
-					"prendi chiave", "vai est", "vai nord", "vai nord", "vai est",
-					"vai nord", "posa chiave", "vai ovest");
+					"prendi chiave", "vai est", "vai est", "vai nord", 
+					"posa chiave", "vai ovest");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.isFinita());
 	}
 	
 	@Test
 	public void testIlluminazioneAulaN18() {
-		setComandi("vai sud", "prendi lanterna", "vai sud", "vai est",
-					"guarda");
+		setComandi("vai sud", "prendi lanterna", "vai nord", "vai est", "vai est", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Qui c'é buio pesto", partita.getStanzaCorrente().getDescrizione());
 		assertEquals("aulaN18", partita.getStanzaCorrente().getNome());
@@ -124,7 +124,7 @@ class testAccettazione {
 	@Test
 	public void testMagiaLabIA() {
 		setComandi("prendi osso", "vai sud", "prendi lanterna", "vai nord", 
-					"vai ovest", "prendi chiave", "vai est", "posa lanterna",
+					"vai ovest", "prendi chiave", "vai sud", "posa lanterna",
 					"posa osso", "posa chiave");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));

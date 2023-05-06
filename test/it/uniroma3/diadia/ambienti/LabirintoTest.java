@@ -24,15 +24,15 @@ class LabirintoTest {
 	// getStanzaFinale ##############################################################################################################################
 	@Test
 	void testGetStanzaFinale() {
-		assertEquals("Biblioteca", labirinto.getStanzaFinale().getNome(), "La stanza finale non è corretta!");
+		assertEquals("Biblioteca", labirinto.getStanzaVincente().getNome(), "La stanza finale non è corretta!");
 	}
 
 	
 	// setStanzaFinale ##############################################################################################################################
 	@Test
 	void testSetStanzaFinale() {
-		labirinto.setStanzaFinale(new Stanza("Bar"));
-		assertEquals("Bar", labirinto.getStanzaFinale().getNome(), "La stanza finale non è stata modificata correttamente");
+		labirinto.setStanzaVincente(new Stanza("Bar"));
+		assertEquals("Bar", labirinto.getStanzaVincente().getNome(), "La stanza finale non è stata modificata correttamente");
 	}
 	
 	
@@ -49,6 +49,6 @@ class LabirintoTest {
 	
 	@Test
 	void testBibliotecaAdiacenteAtrio() {
-		assertEquals("Atrio", labirinto.getStanzaFinale().getStanzaAdiacente("sud").getNome(), "La biblioteca non è adiacente all'atrio da sud");
+		assertEquals("Atrio", labirinto.getStanzaVincente().getStanzaAdiacente("sud").getNome(), "La biblioteca non è adiacente all'atrio da sud");
 	}
 }

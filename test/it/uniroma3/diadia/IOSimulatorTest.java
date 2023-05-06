@@ -9,7 +9,7 @@ class IOSimulatorTest {
 	
 	@Test
 	public void testComandoVuoto() {
-		assertNull(new IOSimulator("").leggiRiga());
+		assertEquals("", new IOSimulator("").leggiRiga());
 	}
 	
 	@Test

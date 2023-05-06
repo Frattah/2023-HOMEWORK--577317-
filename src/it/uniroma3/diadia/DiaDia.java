@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 import java.util.Scanner;
+
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
@@ -37,9 +39,13 @@ public class DiaDia {
 
 	private IO inputOutputManager;
 
-	public DiaDia(IO io) {
-		this.partita = new Partita();
+	public DiaDia(Labirinto labirinto, IO io) {
+		this.partita = new Partita(labirinto);
 		this.inputOutputManager = io;
+	}
+	
+	public DiaDia(IO io) {
+		this(new Labirinto(), io);
 	}
 
 	public void gioca() {

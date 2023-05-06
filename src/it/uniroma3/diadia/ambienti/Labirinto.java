@@ -3,7 +3,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto {
 	Stanza stanzaIniziale;
-	Stanza stanzaFinale;
+	Stanza stanzaVincente;
 	
 	public Labirinto() {
 		/* crea gli attrezzi */
@@ -26,24 +26,20 @@ public class Labirinto {
 		atrio.impostaStanzaAdiacente("est", aulaN11);
 		atrio.impostaStanzaAdiacente("sud", aulaN10);
 		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN11.impostaStanzaAdiacente("est", laboratorio);
+		biblioteca.impostaStanzaAdiacente("sud", atrio);
+		biblioteca.impostaStanzaAdiacente("est", ufficio);
 		aulaN11.impostaStanzaAdiacente("nord", ufficio);
+		aulaN11.impostaStanzaAdiacente("est", aulaN18);
 		aulaN11.impostaStanzaAdiacente("ovest", atrio);
 		aulaN10.impostaStanzaAdiacente("nord", atrio);
-		aulaN10.impostaStanzaAdiacente("est", aulaN11);
-		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
+		aulaN10.impostaStanzaAdiacente("ovest", labIA);
 		laboratorio.impostaStanzaAdiacente("est", atrio);
-		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
-		laboratorio.impostaStanzaAdiacente("est", labIA);
-		labIA.impostaStanzaAdiacente("ovest", laboratorio);
-		aulaN10.impostaStanzaAdiacente("sud", labIA);
-		labIA.impostaStanzaAdiacente("nord", aulaN10);
-		aulaN18.impostaStanzaAdiacente("ovest", labIA);
-		labIA.impostaStanzaAdiacente("est", aulaN18);
-		ufficio.impostaStanzaAdiacente("sud",aulaN11);
-		ufficio.impostaStanzaAdiacente("ovest",biblioteca);
-		
+		laboratorio.impostaStanzaAdiacente("sud", labIA);
+		ufficio.impostaStanzaAdiacente("sud", aulaN11);
+		ufficio.impostaStanzaAdiacente("ovest", biblioteca);
+		labIA.impostaStanzaAdiacente("nord", laboratorio);
+		labIA.impostaStanzaAdiacente("est", aulaN10);
+		aulaN18.impostaStanzaAdiacente("ovest", aulaN11);
 
 		/* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
@@ -52,18 +48,29 @@ public class Labirinto {
 
 		// il gioco comincia nell'atrio
 		this.stanzaIniziale = atrio;
-		this.stanzaFinale = biblioteca;
+		this.stanzaVincente = biblioteca;
 	}
+	
+	public Stanza addStanzaIniziale(Stanza stanzaIniziale) {
+		this.stanzaIniziale = stanzaIniziale;
+		return this.stanzaIniziale;
+	}
+	
+	public Stanza addStanzaVincente(Stanza stanzaVincente) {
+		this.stanzaVincente = stanzaVincente;
+		return this.stanzaVincente;
+	}
+	
  
 	public Stanza getStanzaIniziale() {
 		return stanzaIniziale;
 	}
 	
-	public Stanza getStanzaFinale() {
-		return stanzaFinale;
+	public Stanza getStanzaVincente() {
+		return stanzaVincente;
 	}
 
-	public void setStanzaFinale(Stanza stanzaFinale) {
-		this.stanzaFinale = stanzaFinale;
+	public void setStanzaVincente(Stanza stanzaFinale) {
+		this.stanzaVincente = stanzaFinale;
 	}
 }

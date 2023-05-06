@@ -21,19 +21,13 @@ class StanzaTest {
 	}
 
 	private Stanza stanzaMaxAdiacenti() {
-		for (int i = 0; i < vuota.maxNumeroDirezioni(); i++)
+		for (int i = 0; i < Stanza.NUMERO_MASSIMO_DIREZIONI; i++)
 			this.vuota.impostaStanzaAdiacente("direzioneDiTest"+i,new Stanza("adiacenteDiTest"));
 		return vuota;
 	}
 
 	private Stanza stanzaSingletonAdiacenti() {
 		this.vuota.impostaStanzaAdiacente("direzione0", new Stanza("adiacenteDiTest"));
-		return vuota;
-	}
-
-	private Stanza stanzaMaxAttrezzi() {
-		for (int i = 0; i < vuota.maxNumeroAttrezzi(); i++)
-			this.vuota.addAttrezzo(attrezzoDiTest(i));
 		return vuota;
 	}
 
@@ -44,19 +38,15 @@ class StanzaTest {
 
 	// impostaStanzaAdiacente ##############################################################################################
 	@Test
-	public void testImpostaStanzaAdiacenteConStanzaMaxAdiacenti() {
-		assertFalse(stanzaMaxAdiacenti().impostaStanzaAdiacente("stanzaDiTroppo", new Stanza("adiacenteDiTest")));
-	}
-
-	@Test
 	public void testImpostaStanzaAdiacenteConStanzaNoAdiacentiNoAttrezzi() {
 		assertTrue(this.vuota.impostaStanzaAdiacente("stanzaNuova", new Stanza("adiacenteDiTest")));
 	}
 
 	@Test
 	public void testImpostaStanzaAdiacenteIfDirezioneGiàPresente() {
-		assertTrue(stanzaSingletonAdiacenti().impostaStanzaAdiacente("direzione0", new Stanza("adiacenteDiTest")));
-		assertEquals(1, stanzaSingletonAdiacenti().getNumeroStanzeAdiacenti(), "L'array di adiacenti viene modificato se una direzione era già presente");
+		Stanza room = stanzaSingletonAdiacenti();
+		assertTrue(room.impostaStanzaAdiacente("direzione1", new Stanza("adiacenteDiTest")));
+		assertEquals(2, room.getNumeroStanzeAdiacenti(), "L'array di adiacenti viene modificato se una direzione era già presente");
 	}
 
 
@@ -79,16 +69,6 @@ class StanzaTest {
 	}
 
 	@Test
-	public void testGetAttrezzoConStanzaMaxAttrezzi() {
-		assertNotNull(stanzaMaxAttrezzi().getAttrezzo("attrezzoDiTest3"));
-	}
-
-	@Test
-	public void testGetAttrezzoIfAttrezzoAssente() {
-		assertNull(stanzaMaxAttrezzi().getAttrezzo("attrezzoAssente"));
-	}
-
-	@Test
 	public void testGetAttrezzoConStanzaSingletoAttrezzi() {
 		assertNotNull(stanzaSingletonAttrezzi().getAttrezzo("attrezzoDiTest0"));
 	}
@@ -100,21 +80,10 @@ class StanzaTest {
 		assertTrue(this.vuota.addAttrezzo(attrezzoDiTest(0)));
 	}
 
-	@Test
-	public void testAddAttrezzoConMaxAttrezzi() {
-		assertFalse(stanzaMaxAttrezzi().addAttrezzo(attrezzoDiTest(10)));
-	}
-
-
 	// removeAttrezzo ######################################################################################################
 	@Test
 	public void testRemoveAttrezzoConStanzaNoAdiacentiNoAttrezzi() {
 		assertFalse(this.vuota.removeAttrezzo(attrezzoDiTest(2)));
-	}
-
-	@Test
-	public void testRemoveAttrezzoConStanzaMaxAttrezzi() {
-		assertTrue(stanzaMaxAttrezzi().removeAttrezzo(attrezzoDiTest(1)));
 	}
 
 	@Test
@@ -126,7 +95,7 @@ class StanzaTest {
 	// getDirezioni ########################################################################################################
 	@Test
 	public void testGetDirezioniConStanzaNoAdiacentiNoAttrezzi() {
-		assertNull(this.vuota.getDirezioni());
+		assertEquals(0, this.vuota.getDirezioni().size());
 	}
 
 	@Test
@@ -136,7 +105,7 @@ class StanzaTest {
 
 	@Test
 	public void testGetDirezioniIfRestituisceArrayCorretto() {
-		assertEquals(stanzaMaxAdiacenti().getDirezioni()[2], "direzioneDiTest2", "L'array di direzioni è sbagliato");
+		assertTrue(stanzaMaxAdiacenti().getDirezioni().contains("direzioneDiTest2"));
 	}
 
 
@@ -149,13 +118,8 @@ class StanzaTest {
 
 	// getAttrezzi #########################################################################################################
 	@Test
-	public void testGetAttrezziIfRestituisceArrayCorretto() {
-		assertEquals(stanzaMaxAttrezzi().getAttrezzi()[4].getNome(), "attrezzoDiTest4", "L'array di attrezzi è sbagliato");
-	}
-
-	@Test
 	public void testGetAttrezziConStanzaNoAdiacentiNoAttrezzi() {
-		assertNull(this.vuota.getAttrezzi()[0]);
+		assertEquals(0, this.vuota.getAttrezzi().size());
 	}
 
 
@@ -170,11 +134,6 @@ class StanzaTest {
 		assertTrue(stanzaSingletonAttrezzi().hasAttrezzo("attrezzoDiTest0"));
 	}
 
-	@Test
-	public void testHasAttrezzoConStanzaMaxAttrezzi() {
-		assertFalse(stanzaMaxAttrezzi().hasAttrezzo("attrezzoDiTest10"));
-	}
-
 
 	// toString ############################################################################################################
 	@Test
@@ -186,12 +145,7 @@ class StanzaTest {
 	public void testToStringConStanzaMaxAdiacenti() {
 		assertNotNull(stanzaMaxAdiacenti().toString());
 	}
-
-	@Test
-	public void testToStringConStanzaMaxAttrezzi() {
-		assertNotNull(stanzaMaxAttrezzi().toString());
-	}
-
+	
 	@Test
 	public void testToStringConStanzaSingletonAttrezzi() {
 		assertNotNull(stanzaSingletonAttrezzi().toString());

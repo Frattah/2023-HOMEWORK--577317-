@@ -6,9 +6,14 @@ import it.uniroma3.diadia.Partita;
 public class ComandoGuarda implements Comando {
 	private IO io;
 	private String nome = "guarda";
+	private String parametro;
 
 	@Override
 	public void esegui(Partita partita) {
+		if ("borsa".equals(parametro)) {
+			this.io.mostraMessaggio(partita.getGiocatore().getBorsa().toString()+"\n");
+			return;
+		}
 		this.io.mostraMessaggio(partita.getStanzaCorrente().getDescrizione()+"\n");
 		this.io.mostraMessaggio("Cfu: " + partita.getGiocatore().getCfu()+"\n");
 	}
@@ -19,11 +24,13 @@ public class ComandoGuarda implements Comando {
 	}
 
 	@Override
-	public void setParametro(String parametro) {}
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
 
 	@Override
 	public String getParametro() {
-		return null;
+		return this.parametro;
 	}
 
 	@Override

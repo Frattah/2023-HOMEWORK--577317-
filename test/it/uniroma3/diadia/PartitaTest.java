@@ -23,7 +23,7 @@ public class PartitaTest {
 	
 	@Test
 	public void testIsFinitaConStanzaCorrenteUgualeStanzaFinale() {
-		partitaTest.setStanzaCorrente(partitaTest.getLabirinto().getStanzaFinale());
+		partitaTest.setStanzaCorrente(partitaTest.getLabirinto().getStanzaVincente());
 		assertTrue(partitaTest.isFinita());
 	}
 	

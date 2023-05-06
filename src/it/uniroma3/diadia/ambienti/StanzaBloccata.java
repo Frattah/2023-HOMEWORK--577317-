@@ -30,10 +30,7 @@ public class StanzaBloccata extends Stanza {
     			risultato.append("(bloccata) ");
     	}
     	risultato.append("\nAttrezzi nella stanza: ");
-    	for (int i = 0; i < super.getNumeroAttrezzi(); i++) {
-    		if (super.getAttrezzi()[i] != null)
-    			risultato.append(super.getAttrezzi()[i].toString()+" ");
-    	}
+    	risultato.append(super.getAttrezzi().values().toString()+" ");
     	risultato.append("\n------------------------------------");
     	return risultato.toString();
     }

@@ -40,10 +40,17 @@ class FabbricaDiComandiFisarmonicaTest {
 	}
 	
 	@Test
-	public void testComandoGuardaConParametro() {
+	public void testComandoGuardaConParametroSbagliato() {
 		Comando comando = factory.costruisciComando("guarda stanza", null);
 		assertEquals("comando non valido", comando.getNome());
 		assertNull(comando.getParametro());
+	}
+	
+	@Test
+	public void testComandoGuardaConParametroCorretto() {
+		Comando comando = factory.costruisciComando("guarda borsa", null);
+		assertEquals("guarda", comando.getNome());
+		assertEquals("borsa", comando.getParametro());
 	}
 	
 	

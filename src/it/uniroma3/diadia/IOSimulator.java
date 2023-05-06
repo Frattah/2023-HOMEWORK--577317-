@@ -1,31 +1,34 @@
 package it.uniroma3.diadia;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 public class IOSimulator implements IO {
-	private String comandiLetti[];
-	private int indiceProxComando;	
-	private int numeroComandi;
-	
+	private List<String> comandiLetti;
+	private	Iterator<String> indiceComandiLetti;
+
 	public IOSimulator(String ... comandiLetti) {
-		this.comandiLetti = comandiLetti;
-		this.indiceProxComando = 0;
-		if (comandiLetti != null)
-			this.numeroComandi = this.comandiLetti.length;
-	}
-	
-	@Override
-	public String leggiRiga() {
-		if (this.comandiLetti == null
-			|| this.comandiLetti.length == 0
-			|| this.comandiLetti[this.indiceProxComando].length() == 0)	return null;
-		return this.comandiLetti[this.indiceProxComando++];
-	}
-	
-	public int getNumeroComandi () {
-		return this.numeroComandi;
+		if (comandiLetti != null) {
+			this.comandiLetti = Arrays.asList(comandiLetti);
+			this.indiceComandiLetti = this.comandiLetti.iterator();
+		}
 	}
 
 	@Override
+	public String leggiRiga() {
+		if (this.indiceComandiLetti != null && this.indiceComandiLetti.hasNext())
+			return this.indiceComandiLetti.next();
+		return null;
+	}
+
+	public int getNumeroComandi () {
+		return this.comandiLetti.size();
+	}
+
+	// Da modificare se utilizzando i test di accettazione si vogliono visualizzare gli output
+	@Override
 	public void mostraMessaggio(String messaggio) {
-		System.out.print(messaggio);
+		return ;
 	}
 }

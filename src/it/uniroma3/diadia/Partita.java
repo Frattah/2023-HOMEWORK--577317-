@@ -16,19 +16,28 @@ public class Partita {
 	private Stanza stanzaCorrente;
 	private boolean finita;
 	
-	public Partita(){
-		this.labirinto = new Labirinto();
+	// MGC
+	public Partita(Labirinto labirinto) {
+		this.labirinto = labirinto;
 		this.giocatore = new Giocatore();
 		this.finita = false;
 		this.stanzaCorrente = labirinto.getStanzaIniziale();
 	}
 	
+	public Partita(){
+		this(new Labirinto());
+	}
+	
 	public Labirinto getLabirinto() {
 		return labirinto;
 	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
+	}
 
 	public Stanza getStanzaVincente() {
-		return labirinto.getStanzaFinale();
+		return labirinto.getStanzaVincente();
 	}
 
 	public void setStanzaCorrente(Stanza stanzaCorrente) {

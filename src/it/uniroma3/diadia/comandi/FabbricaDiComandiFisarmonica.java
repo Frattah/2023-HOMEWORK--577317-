@@ -15,12 +15,11 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 			comando.setIO(io);
 			return comando;
 		}
-
+		
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
 		String parametro = null;
-
-
+		
 		// Verifica che il comando abbia una lunghezza di 1/2 parole
 		if (scannerDiParole.hasNext())
 			nomeComando = scannerDiParole.next();
@@ -40,12 +39,12 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 				comando = new ComandoAiuto();
 			else if ("fine".equals(nomeComando) && parametro == null)
 				comando = new ComandoFine();
-			else if ("guarda".equals(nomeComando) && parametro == null)
+			else if ("guarda".equals(nomeComando) && (parametro == null || "borsa".equals(parametro)))
 				comando =  new ComandoGuarda();
 			else 
 				comando = new ComandoNonValido();
 		}
-
+		
 		comando.setParametro(parametro);
 		comando.setIO(io);
 		return comando;

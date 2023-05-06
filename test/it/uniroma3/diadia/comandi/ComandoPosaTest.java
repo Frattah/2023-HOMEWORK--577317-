@@ -24,7 +24,7 @@ class ComandoPosaTest {
 		command.esegui(this.partita);
 		assertEquals(command.getParametro(), null);
 		assertFalse(partita.getGiocatore().getBorsa().isEmpty());
-		assertEquals(partita.getStanzaCorrente().getAttrezzi()[0].getNome(), "osso");
+		assertNotNull(partita.getStanzaCorrente().getAttrezzi().get("osso"));
 	}
 	@Test
 	public void testAttrezzoInesistente() {
