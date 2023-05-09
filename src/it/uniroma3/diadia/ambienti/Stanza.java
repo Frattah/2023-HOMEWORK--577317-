@@ -147,9 +147,17 @@ public class Stanza {
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		return this.attrezzi.remove(attrezzo.getNome(), attrezzo);
 	}
-
+	
+	
+	public boolean isMagica() {
+		return false;
+	}
 
 	public Set<String> getDirezioni() {
 	    return this.direzioni;
     }
+
+	public Map<String, Stanza> getMapStanzeAdiacenti() {
+		return this.stanzeAdiacenti;
+	}
 }

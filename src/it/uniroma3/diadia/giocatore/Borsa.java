@@ -10,7 +10,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerPeso;
 import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerPesoPoiNome;
 import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerNome;
 
@@ -82,27 +81,25 @@ public class Borsa {
 	}
 	
 	List<Attrezzo> getContenutoOrdinatoPerPeso() {
-		List<Attrezzo> attrezziLista = new ArrayList<Attrezzo>(this.attrezzi);
-		Collections.sort(attrezziLista, new ComparatoreAttrezziPerPeso());
-		return attrezziLista;
+		final List<Attrezzo> risultato = new ArrayList<Attrezzo>(this.attrezzi);
+		Collections.sort(risultato, new ComparatoreAttrezziPerPesoPoiNome());
+		return risultato;
 	}
 	
 	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso() {
-		TreeSet<Attrezzo> output = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPesoPoiNome());
-		for (Attrezzo attrezzo : this.attrezzi)
-			output.add(attrezzo);
-		return output;
+		final TreeSet<Attrezzo> risultato = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPesoPoiNome());
+		risultato.addAll(this.attrezzi);
+		return risultato;
 	}
 	
 	SortedSet<Attrezzo> getContenutoOrdinatoPerNome() {
-		TreeSet<Attrezzo> output = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerNome());
-		for (Attrezzo attrezzo : this.attrezzi)
-			output.add(attrezzo);
+		final TreeSet<Attrezzo> output = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerNome());
+		output.addAll(this.attrezzi);
 		return output;
 	}
 	
 	Map<Integer, Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
-		Map<Integer, Set<Attrezzo>> output = new HashMap<Integer, Set<Attrezzo>>();
+		final Map<Integer, Set<Attrezzo>> output = new HashMap<Integer, Set<Attrezzo>>();
 		int peso = 0;
 		for (Attrezzo a : this.attrezzi) {
 			if (output.containsKey(a.getPeso()))

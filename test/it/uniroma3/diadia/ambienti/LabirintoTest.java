@@ -31,7 +31,7 @@ class LabirintoTest {
 	// setStanzaFinale ##############################################################################################################################
 	@Test
 	void testSetStanzaFinale() {
-		labirinto.setStanzaVincente(new Stanza("Bar"));
+		labirinto.addStanzaVincente(new Stanza("Bar"));
 		assertEquals("Bar", labirinto.getStanzaVincente().getNome(), "La stanza finale non è stata modificata correttamente");
 	}
 	
