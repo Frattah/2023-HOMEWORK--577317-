@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.ambienti;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,7 +54,7 @@ public class Stanza {
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
     public boolean impostaStanzaAdiacente(String direzione, Stanza stanza) {
-    	if (!this.direzioni.contains(direzione)) {
+    	if (!this.direzioni.contains(direzione) && this.direzioni.size() < NUMERO_MASSIMO_DIREZIONI) {
     			this.direzioni.add(direzione);
     			this.stanzeAdiacenti.put(direzione, stanza);
     			return true;
@@ -90,6 +92,10 @@ public class Stanza {
      */
     public Map<String, Attrezzo> getAttrezzi() {
         return this.attrezzi;
+    }
+    
+    public List<Attrezzo> getListaAttrezzi() {
+    	return new ArrayList<Attrezzo>(this.attrezzi.values());
     }
 
     /**
@@ -146,6 +152,15 @@ public class Stanza {
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
 		return this.attrezzi.remove(attrezzo.getNome(), attrezzo);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Stanza that = (Stanza) o;
+		Stanza adiacente = null;
+		if (!this.getNome().equals(that.getNome())) return false;
+		if (!this.getDirezioni().equals(that.getDirezioni())) return false;
+		return true;
 	}
 	
 	

@@ -75,7 +75,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoVaiNessunParametro() {
 		Comando comando = factory.costruisciComando("vai", null);
-		assertEquals("comando non valido", comando.getNome());
+		assertEquals("vai", comando.getNome());
 		assertNull(comando.getParametro());
 	}
 	

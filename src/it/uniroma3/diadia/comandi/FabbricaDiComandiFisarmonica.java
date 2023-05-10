@@ -29,7 +29,7 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 			comando = new ComandoNonValido();
 		else {
 			// Creazione del comando corretto
-			if ("vai".equals(nomeComando) && parametro != null)
+			if ("vai".equals(nomeComando))
 				comando = new ComandoVai();
 			else if ("prendi".equals(nomeComando) && parametro != null)
 				comando = new ComandoPrendi();

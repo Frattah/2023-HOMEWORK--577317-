@@ -126,19 +126,41 @@ class testAccettazione {
 		setComandi("prendi osso", "vai sud", "prendi lanterna", "vai nord", 
 					"vai ovest", "prendi chiave", "vai sud", "posa lanterna",
 					"posa osso", "posa chiave");
-		eseguiComandi(partita, this.comandi);
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("chiave"));
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("lanterna"));
-		assertEquals("LabIA", partita.getStanzaCorrente().getNome());
+		eseguiComandi(this.partita, this.comandi);
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("osso"));
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("chiave"));
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("lanterna"));
+		assertEquals("LabIA", this.partita.getStanzaCorrente().getNome());
 		setComandi("prendi osso", "prendi lanterna", "prendi chiave", "posa lanterna",
 					"posa osso", "posa chiave");
 		eseguiComandi(partita, this.comandi);
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
-		assertEquals(2, partita.getStanzaCorrente().getAttrezzo("osso").getPeso());
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("anretnal"));
-		assertEquals(6, partita.getStanzaCorrente().getAttrezzo("anretnal").getPeso());
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("evaihc"));
-		assertEquals(2, partita.getStanzaCorrente().getAttrezzo("evaihc").getPeso());
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("osso"));
+		assertEquals(2, this.partita.getStanzaCorrente().getAttrezzo("osso").getPeso());
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("anretnal"));
+		assertEquals(6, this.partita.getStanzaCorrente().getAttrezzo("anretnal").getPeso());
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("evaihc"));
+		assertEquals(2, this.partita.getStanzaCorrente().getAttrezzo("evaihc").getPeso());
+	}
+	
+	@Test
+	public void testConLabirintoBuilder() {
+		Labirinto lab = new LabirintoBuilder()
+				.addStanzaIniziale("Partenza")
+				.addStanzaVincente("Arrivo")
+				.addStanza("Stanza 1")
+				.addStanza("Stanza 2")
+				.addAttrezzo("bomba", 2)
+				.addStanza("Stanza 3")
+				.addAdiacenza("Partenza", "Stanza 1", "sud")
+				.addAdiacenza("Stanza 1", "Stanza 2", "sud")
+				.addAdiacenza("Stanza 2", "Stanza 3", "est")
+				.addAdiacenza("Stanza 3", "Arrivo", "est")
+				.getLabirinto();
+		this.partita.setLabirinto(lab);
+		setComandi("vai sud", "vai sud", "guarda", "prendi bomba", "vai est",
+					"vai est", "posa bomba");
+		eseguiComandi(this.partita, comandi);
+		assertFalse(this.partita.getGiocatore().getBorsa().hasAttrezzo("bomba"));
+		assertEquals("Arrivo", this.partita.getStanzaCorrente().getNome());
 	}
 }

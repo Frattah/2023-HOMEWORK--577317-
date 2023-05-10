@@ -71,9 +71,8 @@ class BorsaTest {
 		Borsa bag = new Borsa(20);
 		bag.addAttrezzo(new Attrezzo("motosega", 5));
 		bag.addAttrezzo(new Attrezzo("motosega", 2));
+		assertEquals(new Attrezzo("motosega", 2), bag.getAttrezzo("motosega"));
 		bag.addAttrezzo(new Attrezzo("motosega", 6));
-		assertNotNull(bag.removeAttrezzo("motosega"));
-		assertNotNull(bag.removeAttrezzo("motosega"));
 		assertNotNull(bag.removeAttrezzo("motosega"));
 		assertNull(bag.removeAttrezzo("motosega"));
 	}
@@ -262,8 +261,7 @@ class BorsaTest {
 		SortedSet<Attrezzo> insiemeAttrezzi = bag.getSortedSetOrdinatoPerPeso();
 		Iterator i = insiemeAttrezzi.iterator();
 		assertEquals(7, insiemeAttrezzi.size());
-		i.next();
-	//	assertEquals(new Attrezzo("biglia", 1), i.next());
+		assertEquals(new Attrezzo("biglia", 1), i.next());
 		assertEquals(new Attrezzo("dado", 1), i.next());
 		assertEquals(new Attrezzo("penna", 1), i.next());
 		assertEquals(new Attrezzo("piuma", 1), i.next());

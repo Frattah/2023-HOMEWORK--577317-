@@ -34,6 +34,7 @@ public class Partita {
 	
 	public void setLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
+		this.stanzaCorrente = labirinto.getStanzaIniziale();
 	}
 
 	public Stanza getStanzaVincente() {
