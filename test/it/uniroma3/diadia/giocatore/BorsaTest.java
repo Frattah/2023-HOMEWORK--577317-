@@ -10,10 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
-import javax.swing.Box;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 class BorsaTest {
 	private Borsa risultato;
@@ -158,7 +155,7 @@ class BorsaTest {
 	@Test
 	public void testGetContenutoOrdinatoPerPesoConBorsaVaria() {
 		List<Attrezzo> listaAttrezzi = borsaVaria().getContenutoOrdinatoPerPeso();
-		Iterator i = listaAttrezzi.iterator();
+		Iterator<Attrezzo> i = listaAttrezzi.iterator();
 		assertEquals(4, listaAttrezzi.size());
 		assertEquals(new Attrezzo("piuma", 1), i.next());
 		assertEquals(new Attrezzo("libro", 5), i.next());
@@ -169,7 +166,7 @@ class BorsaTest {
 	@Test
 	public void testGetContenutoOrdinatoPerPesoBorsaPiena() {
 		List<Attrezzo> listaAttrezzi = borsaPiena().getContenutoOrdinatoPerPeso();
-		Iterator i = listaAttrezzi.iterator();
+		Iterator<Attrezzo> i = listaAttrezzi.iterator();
 		assertEquals(1, listaAttrezzi.size());
 		assertEquals(new Attrezzo("Mattone", 10), i.next());
 	}
@@ -189,7 +186,7 @@ class BorsaTest {
 		bag.addAttrezzo(new Attrezzo("righello", 1));
 		List<Attrezzo> listaAttrezzi = bag.getContenutoOrdinatoPerPeso();
 		assertEquals(4, listaAttrezzi.size());
-		Iterator it = listaAttrezzi.iterator();
+		Iterator<Attrezzo> it = listaAttrezzi.iterator();
 		assertEquals(new Attrezzo("bussola", 1), it.next());
 		assertEquals(new Attrezzo("matita", 1), it.next());
 		assertEquals(new Attrezzo("penna", 1), it.next());
@@ -200,7 +197,7 @@ class BorsaTest {
 	@Test
 	public void testGetContenutoOrdinatoPerNomeConBorsaVaria() {
 		SortedSet<Attrezzo> insiemeAttrezzi = borsaVaria().getContenutoOrdinatoPerNome();
-		Iterator i = insiemeAttrezzi.iterator();
+		Iterator<Attrezzo> i = insiemeAttrezzi.iterator();
 		assertEquals(4, insiemeAttrezzi.size());
 		assertEquals(new Attrezzo("libro", 5), i.next());
 		assertEquals(new Attrezzo("piombo", 10), i.next());
@@ -211,7 +208,7 @@ class BorsaTest {
 	@Test
 	public void testGetContenutoOrdinatoPerNomeBorsaPiena() {
 		SortedSet<Attrezzo> insiemeAttrezzi = borsaPiena().getContenutoOrdinatoPerNome();
-		Iterator i = insiemeAttrezzi.iterator();
+		Iterator<Attrezzo> i = insiemeAttrezzi.iterator();
 		assertEquals(1, insiemeAttrezzi.size());
 		assertEquals(new Attrezzo("Mattone", 10), i.next());
 	}
@@ -226,7 +223,7 @@ class BorsaTest {
 	@Test
 	public void testGetSortedSetOrdinatoPerPesoConBorsaVaria() {
 		SortedSet<Attrezzo> insiemeAttrezzi = borsaVaria().getSortedSetOrdinatoPerPeso();
-		Iterator i = insiemeAttrezzi.iterator();
+		Iterator<Attrezzo> i = insiemeAttrezzi.iterator();
 		assertEquals(4, insiemeAttrezzi.size());
 		assertEquals(new Attrezzo("piuma", 1), i.next());
 		assertEquals(new Attrezzo("libro", 5), i.next());
@@ -237,7 +234,7 @@ class BorsaTest {
 	@Test
 	public void testGetSortedSetOrdinatoPerPesoBorsaPiena() {
 		SortedSet<Attrezzo> insiemeAttrezzi = borsaPiena().getSortedSetOrdinatoPerPeso();
-		Iterator i = insiemeAttrezzi.iterator();
+		Iterator<Attrezzo> i = insiemeAttrezzi.iterator();
 		assertEquals(1, insiemeAttrezzi.size());
 		assertEquals(new Attrezzo("Mattone", 10), i.next());
 	}
@@ -259,7 +256,7 @@ class BorsaTest {
 		bag.addAttrezzo(new Attrezzo("astuccio", 3));
 		bag.addAttrezzo(new Attrezzo("penna", 1));
 		SortedSet<Attrezzo> insiemeAttrezzi = bag.getSortedSetOrdinatoPerPeso();
-		Iterator i = insiemeAttrezzi.iterator();
+		Iterator<Attrezzo> i = insiemeAttrezzi.iterator();
 		assertEquals(7, insiemeAttrezzi.size());
 		assertEquals(new Attrezzo("biglia", 1), i.next());
 		assertEquals(new Attrezzo("dado", 1), i.next());

@@ -114,7 +114,7 @@ public class Stanza {
 	*/
     public String toString() {
     	StringBuilder risultato = new StringBuilder();
-    	risultato.append("\n* " + this.nome + " *");
+    	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
     	for (String direzione : this.direzioni)
     		if (direzione!=null)
@@ -157,7 +157,6 @@ public class Stanza {
 	@Override
 	public boolean equals(Object o) {
 		Stanza that = (Stanza) o;
-		Stanza adiacente = null;
 		if (!this.getNome().equals(that.getNome())) return false;
 		if (!this.getDirezioni().equals(that.getDirezioni())) return false;
 		return true;

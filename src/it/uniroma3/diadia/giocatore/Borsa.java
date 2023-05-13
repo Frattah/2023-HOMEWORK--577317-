@@ -88,7 +88,6 @@ public class Borsa {
 	Map<Integer, Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
 		final Map<Integer, Set<Attrezzo>> risultato = new HashMap<Integer, Set<Attrezzo>>();
 		Collection<Attrezzo> elencoAttrezzi = this.attrezzi.values();
-		int peso = 0;
 		for (Attrezzo a : elencoAttrezzi) {
 			Set<Attrezzo> nuovo = risultato.get(a.getPeso());
 			if (nuovo == null)

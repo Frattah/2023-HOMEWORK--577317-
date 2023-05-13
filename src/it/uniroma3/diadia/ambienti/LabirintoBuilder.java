@@ -108,7 +108,7 @@ public class LabirintoBuilder {
 	}
 	
 	public Map<String, Stanza> getMappaStanze() {
-		Map<String, Stanza> risultato = new HashMap();
+		Map<String, Stanza> risultato = new HashMap<String, Stanza>();
 		for (Stanza s : this.stanze)
 			risultato.put(s.getNome(), s);
 		return risultato;
