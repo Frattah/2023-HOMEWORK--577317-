@@ -19,7 +19,7 @@ class testAccettazione {
 
 	// METODI D'ACCETTAZIONE ###########################################################################################################
 	
-	private void setComandi(String ... comandi) {
+	private void setComandi(String ... comandi) throws Exception {
 		IOSimulator io = new IOSimulator(comandi);
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
 		this.comandi = new Comando[io.getNumeroComandi()];
@@ -37,7 +37,7 @@ class testAccettazione {
 	// TEST D'ACCETTAZIONE ##############################################################################################################
 	
 	@Test
-	public void testComandiNonValidi() {
+	public void testComandiNonValidi() throws Exception {
 		setComandi("vai nord-est", "vai sud-ovest", "vai a destra e a sinistra",
 					"saltella", "aiuto", "finE", "prendi ossobuco", "prendi osso bello",
 					"vai sud ovest", "posa missile");
@@ -48,7 +48,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testAcquisizioneComandi() {
+	public void testAcquisizioneComandi() throws Exception {
 		setComandi("vai nord", "aiuto", "fine");
 		assertEquals("vai", this.comandi[0].getNome());
 		assertEquals("nord", this.comandi[0].getParametro());
@@ -59,14 +59,14 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testFinePartita() {
+	public void testFinePartita() throws Exception {
 		setComandi("fine");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.isFinita());
 	}
 	
 	@Test
-	public void testVittoriaInBiblioteca() {
+	public void testVittoriaInBiblioteca() throws Exception {
 		setComandi("vai nord");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.isFinita());
@@ -74,7 +74,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testMovimento() {
+	public void testMovimento() throws Exception {
 		setComandi("vai est", "vai nord", "vai sud", "vai est");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
@@ -82,7 +82,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testRaccoltaOggetto() {
+	public void testRaccoltaOggetto() throws Exception {
 		setComandi("vai sud", "vai ovest", "vai nord", "prendi chiave");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Laboratorio Campus", partita.getStanzaCorrente().getNome());
@@ -90,7 +90,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testPosaOggetto() {
+	public void testPosaOggetto() throws Exception {
 		setComandi("prendi osso", "vai sud", "vai ovest", "posa osso");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("LabIA", partita.getStanzaCorrente().getNome());
@@ -98,7 +98,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testSbloccoUfficioVittoria() {
+	public void testSbloccoUfficioVittoria() throws Exception {
 		setComandi("vai est", "guarda", "vai nord", "guarda", "vai ovest", 
 					"guarda", "vai sud", "vai ovest", "vai ovest", "guarda", 
 					"prendi chiave", "vai est", "vai est", "vai nord", 
@@ -108,7 +108,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testIlluminazioneAulaN18() {
+	public void testIlluminazioneAulaN18() throws Exception {
 		setComandi("vai sud", "prendi lanterna", "vai nord", "vai est", "vai est", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Qui c'é buio pesto", partita.getStanzaCorrente().getDescrizione());
@@ -119,7 +119,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testMagiaLabIA() {
+	public void testMagiaLabIA() throws Exception {
 		setComandi("prendi osso", "vai sud", "prendi lanterna", "vai nord", 
 					"vai ovest", "prendi chiave", "vai sud", "posa lanterna",
 					"posa osso", "posa chiave");
@@ -140,7 +140,7 @@ class testAccettazione {
 	}
 	
 	@Test
-	public void testConLabirintoBuilder() {
+	public void testConLabirintoBuilder() throws Exception {
 		Labirinto lab = new LabirintoBuilder()
 				.addStanzaIniziale("Partenza")
 				.addStanzaVincente("Arrivo")
