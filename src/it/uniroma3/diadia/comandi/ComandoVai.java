@@ -4,6 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVai extends AbstractComando {
+	private String parametro;
 	
 	public ComandoVai() {
 		super();
@@ -30,5 +31,15 @@ public class ComandoVai extends AbstractComando {
 		partita.setStanzaCorrente(prossimaStanza);
 		if (this.getIO() != null) this.getIO().mostraMessaggio("* "+partita.getStanzaCorrente().getNome()+" *\n");
 		partita.getGiocatore().setCfu(partita.getGiocatore().getCfu() - 1);
+	}
+	
+	@Override
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
+	
+	@Override
+	public String getParametro() {
+		return this.parametro;
 	}
 }

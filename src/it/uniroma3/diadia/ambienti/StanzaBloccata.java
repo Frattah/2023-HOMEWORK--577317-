@@ -39,6 +39,11 @@ public class StanzaBloccata extends Stanza {
     	}
     	risultato.append("\nAttrezzi nella stanza: ");
     	risultato.append(super.getAttrezzi().values().toString()+" ");
+    	risultato.append("\nPersonaggo della stanza: ");
+    	if (this.getPersonaggio() != null)
+    		risultato.append(this.getPersonaggio().toString()+" ");
+    	else
+    		risultato.append("nessun personaggio");
     	risultato.append("\n------------------------------------");
     	return risultato.toString();
     }

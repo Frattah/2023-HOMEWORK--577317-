@@ -4,7 +4,8 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosa extends AbstractComando {
-
+	private String parametro;
+	
 	public ComandoPosa() {
 		super();
 		this.setNome("posa");
@@ -22,5 +23,15 @@ public class ComandoPosa extends AbstractComando {
 		else
 			if (this.getIO() != null)
 				this.getIO().mostraMessaggio("Nessuno oggetto con questo nome\n");
+	}
+	
+	@Override
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
+	
+	@Override
+	public String getParametro() {
+		return this.parametro;
 	}
 }

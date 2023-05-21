@@ -5,7 +5,6 @@ import it.uniroma3.diadia.Partita;
 
 public abstract class AbstractComando implements Comando {
 	private String nome;
-	private String parametro;
 	private IO io;
 	
 	public abstract void esegui(Partita partita);
@@ -26,11 +25,9 @@ public abstract class AbstractComando implements Comando {
 		return this.io;
 	}
 	
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
-	}
-
+	public void setParametro(String parametro) {}
+	
 	public String getParametro() {
-		return this.parametro;
+		return null;
 	}
 }

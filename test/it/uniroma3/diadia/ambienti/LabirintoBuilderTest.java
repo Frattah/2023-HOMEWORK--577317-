@@ -7,6 +7,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+import it.uniroma3.diadia.personaggi.Cane;
 
 class LabirintoBuilderTest {
 
@@ -105,5 +107,14 @@ class LabirintoBuilderTest {
 		assertEquals("Qui c'é buio pesto", cantina.getDescrizione());
 		cantina.addAttrezzo(new Attrezzo("torcia", 1));
 		assertEquals(cantina.toString(), cantina.getDescrizione());
+	}
+	
+	@Test
+	public void testConPersonaggio() {
+		Labirinto labirintoTest = new LabirintoBuilder()
+				.addStanzaIniziale("salotto")
+				.addCane("Jeff", null)
+				.getLabirinto();
+	assertNotNull(labirintoTest.getStanzaIniziale().getPersonaggio());
 	}
 }

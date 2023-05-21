@@ -15,7 +15,4 @@ public class ComandoFine extends AbstractComando {
 		if (this.getIO() != null)
 			this.getIO().mostraMessaggio("Arrivederci e grazie per aver giocato!\n");
 	}
-	
-	@Override
-	public void setParametro(String parametro) {}
 }

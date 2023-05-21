@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+import it.uniroma3.diadia.personaggi.Cane;
+import it.uniroma3.diadia.personaggi.Mago;
+import it.uniroma3.diadia.personaggi.Strega;
 
 public class LabirintoBuilder {
 	Stanza stanzaIniziale;
@@ -37,6 +41,31 @@ public class LabirintoBuilder {
 	public LabirintoBuilder addAttrezzo(String nome, int peso) {
 		Attrezzo nuovoAttrezzo = new Attrezzo(nome, peso);
 		this.stanze.getLast().addAttrezzo(nuovoAttrezzo);
+		return this;
+	}
+	
+	public LabirintoBuilder addCane(String nome, String presentazione, Attrezzo custodito) {
+		this.stanze.getLast().setPersonaggio(new Cane(nome, presentazione, custodito));
+		return this;
+	}
+	
+	public LabirintoBuilder addCane(String nome, String presentazione ) {
+		this.stanze.getLast().setPersonaggio(new Cane(nome, presentazione));
+		return this;
+	}
+	
+	public LabirintoBuilder addStrega(String nome, String presentazione ) {
+		this.stanze.getLast().setPersonaggio(new Strega(nome, presentazione));
+		return this;
+	}
+	
+	public LabirintoBuilder addMago(String nome, String presentazione, Attrezzo daRegalare) {
+		this.stanze.getLast().setPersonaggio(new Mago(nome, presentazione, daRegalare));
+		return this;
+	}
+	
+	public LabirintoBuilder addMago(String nome, String presentazione) {
+		this.stanze.getLast().setPersonaggio(new Mago(nome, presentazione));
 		return this;
 	}
 	

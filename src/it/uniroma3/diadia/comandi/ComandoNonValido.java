@@ -11,9 +11,7 @@ public class ComandoNonValido extends AbstractComando {
 	
 	@Override
 	public void esegui(Partita partita) {
-		this.getIO().mostraMessaggio("Comando non valido!\n");
+		if (this.getIO() != null)
+			this.getIO().mostraMessaggio("Comando non valido!\n");
 	}
-	
-	@Override
-	public void setParametro(String parametro) {}
 }

@@ -8,7 +8,7 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Comando costruisciComando(String istruzione, IO io) throws Exception {
+	public Comando costruisciComando(String istruzione, IO io)  {
 		Comando comando = null;
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
@@ -34,7 +34,11 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 				.append(Character.toUpperCase(nomeComando.charAt(0)))
 				.append(nomeComando.substring(1))
 				.toString();
-		comando = (Comando) Class.forName(nomeClasse).newInstance();
+		try {
+			comando = (Comando) Class.forName(nomeClasse).newInstance();
+		} catch(Exception e) {
+			comando = new ComandoNonValido();
+		}
 		comando.setParametro(parametro);
 		comando.setIO(io);
 		return comando;

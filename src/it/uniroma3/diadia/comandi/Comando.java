@@ -12,7 +12,9 @@ public interface Comando {
 	
 	public void setIO(IO io);
 	
+	public IO getIO();
+	
 	public void setParametro(String parametro);
-
+	
 	public String getParametro();
 }

@@ -3,6 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoGuarda extends AbstractComando {
+	private String parametro;
 	
 	public ComandoGuarda() {
 		super();
@@ -19,5 +20,15 @@ public class ComandoGuarda extends AbstractComando {
 			return ;
 		this.getIO().mostraMessaggio(partita.getStanzaCorrente().getDescrizione()+"\n");
 		this.getIO().mostraMessaggio("Cfu: " + partita.getGiocatore().getCfu()+"\n");
+	}
+	
+	@Override
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
+	
+	@Override
+	public String getParametro() {
+		return this.parametro;
 	}
 }

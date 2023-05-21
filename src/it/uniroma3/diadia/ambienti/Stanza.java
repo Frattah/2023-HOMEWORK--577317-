@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -27,6 +29,7 @@ public class Stanza {
     private Map<String, Attrezzo> attrezzi;
     private Map<String, Stanza> stanzeAdiacenti;
 	private Set<String> direzioni;
+	private AbstractPersonaggio personaggio;
 	
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -123,6 +126,11 @@ public class Stanza {
     	risultato.append(this.attrezzi.values().toString()+" ");
     	if (this.attrezzi.size() == 0)
     			risultato.append("nessun attrezzo");
+    	risultato.append("\nPersonaggo della stanza: ");
+    	if (this.personaggio != null)
+    		risultato.append(this.personaggio.toString()+" ");
+    	else
+    		risultato.append("nessun personaggio");
     	risultato.append("\n------------------------------------");
     	return risultato.toString();
     }
@@ -173,5 +181,29 @@ public class Stanza {
 
 	public Map<String, Stanza> getMapStanzeAdiacenti() {
 		return this.stanzeAdiacenti;
+	}
+	
+	public Stanza getAdiacenteConPiuAttrezzi() {
+		List<Stanza> ordinatePerPiuAttrezzi = new ArrayList<Stanza>();
+		ordinatePerPiuAttrezzi.addAll(this.stanzeAdiacenti.values());
+		if (ordinatePerPiuAttrezzi.isEmpty())
+			return this;
+		return Collections.max(ordinatePerPiuAttrezzi, new ComparatoreStanzaPerNumeroAttrezzi());
+	}
+	
+	public Stanza getAdiacenteConMenoAttrezzi() {
+		List<Stanza> ordinatePerPiuAttrezzi = new ArrayList<Stanza>();
+		ordinatePerPiuAttrezzi.addAll(this.stanzeAdiacenti.values());
+		if (ordinatePerPiuAttrezzi.isEmpty())
+			return this;
+		return Collections.min(ordinatePerPiuAttrezzi, new ComparatoreStanzaPerNumeroAttrezzi());
+	}
+
+	public AbstractPersonaggio getPersonaggio() {
+		return personaggio;
+	}
+
+	public void setPersonaggio(AbstractPersonaggio nuovoPersonaggio) {
+		this.personaggio = nuovoPersonaggio;
 	}
 }
