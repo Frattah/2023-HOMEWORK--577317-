@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.properties.Properties;
+
 
 class GiocatoreTest {
 	private Giocatore giocatoreDiTest;
@@ -24,7 +26,7 @@ class GiocatoreTest {
 	// getCfu ############################################################################################################################################
 	@Test
 	public void testGetCfu() {
-		assertEquals(giocatoreDiTest.getCfuIniziali(), giocatoreDiTest.getCfu(), "I cfu del giocatore sembrano essere cambiati inaspettatamente");
+		assertEquals(Properties.CFU_INIZIALI, giocatoreDiTest.getCfu(), "I cfu del giocatore sembrano essere cambiati inaspettatamente");
 	}
 	
 	

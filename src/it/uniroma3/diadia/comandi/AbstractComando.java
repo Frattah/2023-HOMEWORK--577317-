@@ -2,20 +2,14 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import lombok.Getter;
+import lombok.Setter;
 
 public abstract class AbstractComando implements Comando {
-	private String nome;
+	@Getter @Setter private String nome;
 	private IO io;
 	
 	public abstract void esegui(Partita partita);
-	
-	public String getNome() {
-		return this.nome;
-	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	
 	public void setIO(IO io) {
 		this.io = io;

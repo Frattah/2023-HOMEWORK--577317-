@@ -1,10 +1,15 @@
 package it.uniroma3.diadia.ambienti;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import it.uniroma3.diadia.attrezzi.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class StanzaTest {
 	private Stanza vuota;
@@ -21,13 +26,13 @@ class StanzaTest {
 	}
 
 	private Stanza stanzaMaxAdiacenti() {
-		for (int i = 0; i < Stanza.NUMERO_MASSIMO_DIREZIONI; i++)
-			this.vuota.impostaStanzaAdiacente("direzioneDiTest"+i,new Stanza("adiacenteDiTest"));
+		for (Direzione direzione : Direzione.values())
+			this.vuota.impostaStanzaAdiacente(direzione, new Stanza("adiacenteDiTest"));
 		return vuota;
 	}
 
 	private Stanza stanzaSingletonAdiacenti() {
-		this.vuota.impostaStanzaAdiacente("direzione0", new Stanza("adiacenteDiTest"));
+		this.vuota.impostaStanzaAdiacente(Direzione.NORD, new Stanza("adiacenteDiTest"));
 		return vuota;
 	}
 
@@ -39,26 +44,26 @@ class StanzaTest {
 	// impostaStanzaAdiacente ##############################################################################################
 	@Test
 	public void testImpostaStanzaAdiacenteConStanzaNoAdiacentiNoAttrezzi() {
-		assertTrue(this.vuota.impostaStanzaAdiacente("stanzaNuova", new Stanza("adiacenteDiTest")));
+		assertTrue(this.vuota.impostaStanzaAdiacente(Direzione.NORD, new Stanza("adiacenteDiTest")));
 	}
 
 	@Test
 	public void testImpostaStanzaAdiacenteIfDirezioneGiàPresente() {
 		Stanza room = stanzaSingletonAdiacenti();
-		assertTrue(room.impostaStanzaAdiacente("direzione1", new Stanza("adiacenteDiTest")));
-		assertEquals(2, room.getNumeroStanzeAdiacenti(), "L'array di adiacenti viene modificato se una direzione era già presente");
+		assertTrue(room.impostaStanzaAdiacente(Direzione.SUD, new Stanza("adiacenteDiTest")));
+		assertEquals(2, room.getNumeroStanzeAdiacenti(), "L'array di adiacenti viene incrementato se una direzione era già presente");
 	}
 
 
 	// getStanzaAdiacente ##################################################################################################
 	@Test
 	public void testGetStanzaAdiacenteConStanzaNoAdiacenti() {
-		assertNull(this.vuota.getStanzaAdiacente("direzioneDiTest3"));
+		assertNull(this.vuota.getStanzaAdiacente(Direzione.NORD));
 	}
 
 	@Test
 	public void testGetStanzaAdiacenteConStanzaMaxAdiacenti() {
-		assertNotNull(stanzaMaxAdiacenti().getStanzaAdiacente("direzioneDiTest0"));
+		assertNotNull(stanzaMaxAdiacenti().getStanzaAdiacente(Direzione.NORD));
 	}
 
 
@@ -105,7 +110,7 @@ class StanzaTest {
 
 	@Test
 	public void testGetDirezioniIfRestituisceArrayCorretto() {
-		assertTrue(stanzaMaxAdiacenti().getDirezioni().contains("direzioneDiTest2"));
+		assertTrue(stanzaMaxAdiacenti().getDirezioni().contains(Direzione.NORD));
 	}
 
 

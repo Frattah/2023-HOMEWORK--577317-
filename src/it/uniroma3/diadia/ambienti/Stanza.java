@@ -9,6 +9,9 @@ import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+import it.uniroma3.diadia.properties.Properties;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -23,13 +26,11 @@ import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 public class Stanza {
 	
-	static final int NUMERO_MASSIMO_DIREZIONI = 4;
-	
-	private String nome;
-    private Map<String, Attrezzo> attrezzi;
-    private Map<String, Stanza> stanzeAdiacenti;
-	private Set<String> direzioni;
-	private AbstractPersonaggio personaggio;
+	@Getter private String nome;
+    @Getter private Map<String, Attrezzo> attrezzi;
+    @Getter private Map<Direzione, Stanza> stanzeAdiacenti;
+	@Getter private Set<Direzione> direzioni;
+	@Getter @Setter private AbstractPersonaggio personaggio;
 	
     /**
      * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -37,8 +38,8 @@ public class Stanza {
      */
     public Stanza(String nome) {
         this.nome = nome;
-        this.direzioni = new HashSet<String>();
-        this.stanzeAdiacenti = new HashMap<String, Stanza>();
+        this.direzioni = new HashSet<Direzione>();
+        this.stanzeAdiacenti = new HashMap<Direzione, Stanza>();
         this.attrezzi = new HashMap<String, Attrezzo>();
     }
     
@@ -56,8 +57,8 @@ public class Stanza {
      * @param direzione direzione in cui sara' posta la stanza adiacente.
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
-    public boolean impostaStanzaAdiacente(String direzione, Stanza stanza) {
-    	if (!this.direzioni.contains(direzione) && this.direzioni.size() < NUMERO_MASSIMO_DIREZIONI) {
+    public boolean impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
+    	if (!this.direzioni.contains(direzione) && this.direzioni.size() < Properties.NUMERO_MASSIMO_DIREZIONI) {
     			this.direzioni.add(direzione);
     			this.stanzeAdiacenti.put(direzione, stanza);
     			return true;
@@ -69,17 +70,9 @@ public class Stanza {
      * Restituisce la stanza adiacente nella direzione specificata
      * @param direzione
      */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		return this.stanzeAdiacenti.get(direzione);
 	}
-
-    /**
-     * Restituisce la nome della stanza.
-     * @return il nome della stanza
-     */
-    public String getNome() {
-        return this.nome;
-    }
 
     /**
      * Restituisce la descrizione della stanza.
@@ -87,14 +80,6 @@ public class Stanza {
      */
     public String getDescrizione() {
         return this.toString();
-    }
-
-    /**
-     * Restituisce la collezione di attrezzi presenti nella stanza.
-     * @return la collezione di attrezzi nella stanza.
-     */
-    public Map<String, Attrezzo> getAttrezzi() {
-        return this.attrezzi;
     }
     
     public List<Attrezzo> getListaAttrezzi() {
@@ -119,7 +104,7 @@ public class Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append(this.nome);
     	risultato.append("\nUscite: ");
-    	for (String direzione : this.direzioni)
+    	for (Direzione direzione : this.direzioni)
     		if (direzione!=null)
     			risultato.append(" " + direzione);
     	risultato.append("\nAttrezzi nella stanza: ");
@@ -170,19 +155,6 @@ public class Stanza {
 		return true;
 	}
 	
-	
-	public boolean isMagica() {
-		return false;
-	}
-
-	public Set<String> getDirezioni() {
-	    return this.direzioni;
-    }
-
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
-		return this.stanzeAdiacenti;
-	}
-	
 	public Stanza getAdiacenteConPiuAttrezzi() {
 		List<Stanza> ordinatePerPiuAttrezzi = new ArrayList<Stanza>();
 		ordinatePerPiuAttrezzi.addAll(this.stanzeAdiacenti.values());
@@ -197,13 +169,5 @@ public class Stanza {
 		if (ordinatePerPiuAttrezzi.isEmpty())
 			return this;
 		return Collections.min(ordinatePerPiuAttrezzi, new ComparatoreStanzaPerNumeroAttrezzi());
-	}
-
-	public AbstractPersonaggio getPersonaggio() {
-		return personaggio;
-	}
-
-	public void setPersonaggio(AbstractPersonaggio nuovoPersonaggio) {
-		this.personaggio = nuovoPersonaggio;
 	}
 }

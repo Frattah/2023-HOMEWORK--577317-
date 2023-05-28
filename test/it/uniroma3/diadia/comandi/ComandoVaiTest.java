@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -57,7 +58,7 @@ class ComandoVaiTest {
 		Labirinto lab = new LabirintoBuilder()
 				.addStanzaIniziale("Partenza")
 				.addStanzaVincente("Arrivo")
-				.addAdiacenza("Partenza", "Arrivo", "sud")
+				.addAdiacenza("Partenza", "Arrivo", Direzione.SUD)
 				.getLabirinto();
 		partita.setLabirinto(lab);
 		command.setParametro("sud");
@@ -73,9 +74,9 @@ class ComandoVaiTest {
 				.addStanza("Stanza 1")
 				.addStanza("Stanza 2")
 				.addStanza("Stanza 3")
-				.addAdiacenza("Partenza", "Stanza 1", "sud")
-				.addAdiacenza("Stanza 1", "Stanza 2", "est")
-				.addAdiacenza("Stanza 2", "Stanza 3", "sud")
+				.addAdiacenza("Partenza", "Stanza 1", Direzione.SUD)
+				.addAdiacenza("Stanza 1", "Stanza 2", Direzione.EST)
+				.addAdiacenza("Stanza 2", "Stanza 3", Direzione.SUD)
 				.getLabirinto();
 		partita.setLabirinto(lab);
 		command.setParametro("sud");

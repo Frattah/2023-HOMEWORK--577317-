@@ -19,6 +19,7 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 		if (istruzione == null || istruzione.equals("")) {
 			comando = new ComandoNonValido();
 			comando.setIO(io);
+			scannerDiParole.close();
 			return comando;
 		}
 
@@ -28,8 +29,11 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 			nomeComando = scannerDiParole.next();
 		if (scannerDiParole.hasNext())
 			parametro = scannerDiParole.next();
-		if (scannerDiParole.hasNext())
+		if (scannerDiParole.hasNext()) {
+			scannerDiParole.close();
 			return new ComandoNonValido();
+		}
+		scannerDiParole.close();
 		String nomeClasse = new StringBuilder("it.uniroma3.diadia.comandi.Comando")
 				.append(Character.toUpperCase(nomeComando.charAt(0)))
 				.append(nomeComando.substring(1))

@@ -2,11 +2,9 @@ package it.uniroma3.diadia.ambienti;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
 import it.uniroma3.diadia.personaggi.Strega;
@@ -69,7 +67,7 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	public LabirintoBuilder addAdiacenza(String from, String to, String direzione) {
+	public LabirintoBuilder addAdiacenza(String from, String to, Direzione direzione) {
 		Stanza stanzaFrom = null;
 		Stanza stanzaTo = null;
 		for (Stanza stanza : this.stanze)
@@ -93,8 +91,6 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	
-	
 	public LabirintoBuilder addStanzaMagica(String nome) {
 		Stanza nuovaStanza = new StanzaMagica(nome);
 		if (!this.stanze.contains(nuovaStanza))
@@ -109,9 +105,7 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	
-	
-	public LabirintoBuilder addStanzaBloccata(String nome, String direzioneBloccata, String attrezzoSbloccante) {
+	public LabirintoBuilder addStanzaBloccata(String nome, Direzione direzioneBloccata, String attrezzoSbloccante) {
 		Stanza nuovaStanza = new StanzaBloccata(nome, direzioneBloccata, attrezzoSbloccante);
 		if (!this.stanze.contains(nuovaStanza))
 			this.stanze.addLast(nuovaStanza);
@@ -127,13 +121,9 @@ public class LabirintoBuilder {
 	
 	public Labirinto getLabirinto() {
 		Labirinto risultato = new Labirinto();
-		risultato.addStanzaIniziale(this.stanzaIniziale);
-		risultato.addStanzaVincente(this.stanzaVincente);
+		risultato.setStanzaIniziale(this.stanzaIniziale);
+		risultato.setStanzaVincente(this.stanzaVincente);
 		return risultato;
-	}
-
-	public List<Stanza> getListaStanze() {
-		return this.stanze;
 	}
 	
 	public Map<String, Stanza> getMappaStanze() {

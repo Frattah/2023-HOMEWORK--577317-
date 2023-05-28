@@ -1,6 +1,8 @@
 package it.uniroma3.diadia;
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.giocatore.Giocatore;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Questa classe modella una partita del gioco
@@ -11,9 +13,9 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-	private Labirinto labirinto;
-	private	Giocatore giocatore;
-	private Stanza stanzaCorrente;
+	@Getter private Labirinto labirinto;
+	@Getter private	Giocatore giocatore;
+	@Getter @Setter private Stanza stanzaCorrente;
 	private boolean finita;
 	
 	// MGC
@@ -28,10 +30,6 @@ public class Partita {
 		this(new Labirinto());
 	}
 	
-	public Labirinto getLabirinto() {
-		return labirinto;
-	}
-	
 	public void setLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
 		this.stanzaCorrente = labirinto.getStanzaIniziale();
@@ -39,18 +37,6 @@ public class Partita {
 
 	public Stanza getStanzaVincente() {
 		return labirinto.getStanzaVincente();
-	}
-
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
-	}
-
-	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
-	}
-	
-	public Giocatore getGiocatore() {
-		return this.giocatore;
 	}
 	
 	/**

@@ -1,5 +1,9 @@
 package it.uniroma3.diadia.attrezzi;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 /**
  * Una semplice classe che modella un attrezzo.
  * Gli attrezzi possono trovarsi all'interno delle stanze
@@ -10,36 +14,12 @@ package it.uniroma3.diadia.attrezzi;
  * @see Stanza
  * @version base
  */
-public class Attrezzo implements Comparable<Attrezzo> {
+@AllArgsConstructor
+@EqualsAndHashCode
+public class Attrezzo {
 
-	private String nome;
-	private int peso;
-
-	/**
-	 * Crea un attrezzo
-	 * @param nome il nome che identifica l'attrezzo
-	 * @param peso il peso dell'attrezzo
-	 */
-	public Attrezzo(String nome, int peso) {
-		this.peso = peso;
-		this.nome = nome;
-	}
-
-	/**
-	 * Restituisce il nome identificatore dell'attrezzo
-	 * @return il nome identificatore dell'attrezzo
-	 */
-	public String getNome() {
-		return this.nome;
-	}
-
-	/**
-	 * Restituisce il peso dell'attrezzo
-	 * @return il peso dell'attrezzo
-	 */
-	public int getPeso() {
-		return this.peso;
-	}
+	@Getter private String nome;
+	@Getter private int peso;
 
 	/**
 	 * Restituisce una rappresentazione stringa di questo attrezzo
@@ -47,23 +27,5 @@ public class Attrezzo implements Comparable<Attrezzo> {
 	 */
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o == null) return false;
-		final Attrezzo that = (Attrezzo) o;
-		return that.getNome().equals(this.getNome());
-	}
-	
-	@Override
-	public int hashCode() {
-		return this.nome.hashCode() + this.peso;
-	}
-
-	@Override
-	public int compareTo(Attrezzo o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

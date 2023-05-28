@@ -2,21 +2,19 @@ package it.uniroma3.diadia.personaggi;
 
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import lombok.Getter;
+import lombok.Setter;
 
 abstract public class AbstractPersonaggio {
-	private String nome;
+	@Getter private String nome;
 	private String presentazione;
-	private Attrezzo attrezzo;
+	@Getter @Setter private Attrezzo attrezzo;
 	private boolean salutato;
 
 	public AbstractPersonaggio(String nome, String presentazione) {
 		this.salutato = false;
 		this.presentazione = presentazione;
 		this.nome = nome;
-	}	
-
-	public String getNome() {
-		return nome;
 	}	
 
 	public boolean isSalutato() {
@@ -42,13 +40,4 @@ abstract public class AbstractPersonaggio {
 	public String toString() {
 		return this.getNome();
 	}
-
-	public Attrezzo getAttrezzo() {
-		return attrezzo;
-	}
-
-	public void setAttrezzo(Attrezzo attrezzo) {
-		this.attrezzo = attrezzo;
-	}
-
 }

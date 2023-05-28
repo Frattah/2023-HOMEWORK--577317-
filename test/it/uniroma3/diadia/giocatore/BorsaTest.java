@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.properties.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +20,7 @@ class BorsaTest {
 	
 	private Borsa borsaPiena() {
 		risultato = new Borsa();
-		risultato.addAttrezzo(new Attrezzo("Mattone", Borsa.DEFAULT_PESO_MAX_BORSA));
+		risultato.addAttrezzo(new Attrezzo("Mattone", Properties.DEFAULT_PESO_MAX_BORSA));
 		return risultato;
 	}
 	

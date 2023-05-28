@@ -4,7 +4,10 @@ import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
 import it.uniroma3.diadia.personaggi.Strega;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class Labirinto {
 	Stanza stanzaIniziale;
 	Stanza stanzaVincente;
@@ -29,27 +32,27 @@ public class Labirinto {
 		Stanza biblioteca = new Stanza("Biblioteca");
 		StanzaMagica labIA = new StanzaMagica("LabIA");
 		StanzaBuia aulaN18 = new StanzaBuia("aulaN18","lanterna");
-		StanzaBloccata ufficio = new StanzaBloccata("ufficio","ovest","chiave");
+		StanzaBloccata ufficio = new StanzaBloccata("ufficio",Direzione.OVEST,"chiave");
 
 		/* collega le stanze */
-		atrio.impostaStanzaAdiacente("nord", biblioteca);
-		atrio.impostaStanzaAdiacente("est", aulaN11);
-		atrio.impostaStanzaAdiacente("sud", aulaN10);
-		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-		biblioteca.impostaStanzaAdiacente("sud", atrio);
-		biblioteca.impostaStanzaAdiacente("est", ufficio);
-		aulaN11.impostaStanzaAdiacente("nord", ufficio);
-		aulaN11.impostaStanzaAdiacente("est", aulaN18);
-		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-		aulaN10.impostaStanzaAdiacente("nord", atrio);
-		aulaN10.impostaStanzaAdiacente("ovest", labIA);
-		laboratorio.impostaStanzaAdiacente("est", atrio);
-		laboratorio.impostaStanzaAdiacente("sud", labIA);
-		ufficio.impostaStanzaAdiacente("sud", aulaN11);
-		ufficio.impostaStanzaAdiacente("ovest", biblioteca);
-		labIA.impostaStanzaAdiacente("nord", laboratorio);
-		labIA.impostaStanzaAdiacente("est", aulaN10);
-		aulaN18.impostaStanzaAdiacente("ovest", aulaN11);
+		atrio.impostaStanzaAdiacente(Direzione.NORD, biblioteca);
+		atrio.impostaStanzaAdiacente(Direzione.EST, aulaN11);
+		atrio.impostaStanzaAdiacente(Direzione.SUD, aulaN10);
+		atrio.impostaStanzaAdiacente(Direzione.OVEST, laboratorio);
+		biblioteca.impostaStanzaAdiacente(Direzione.SUD, atrio);
+		biblioteca.impostaStanzaAdiacente(Direzione.EST, ufficio);
+		aulaN11.impostaStanzaAdiacente(Direzione.NORD, ufficio);
+		aulaN11.impostaStanzaAdiacente(Direzione.EST, aulaN18);
+		aulaN11.impostaStanzaAdiacente(Direzione.OVEST, atrio);
+		aulaN10.impostaStanzaAdiacente(Direzione.NORD, atrio);
+		aulaN10.impostaStanzaAdiacente(Direzione.OVEST, labIA);
+		laboratorio.impostaStanzaAdiacente(Direzione.EST, atrio);
+		laboratorio.impostaStanzaAdiacente(Direzione.SUD, labIA);
+		ufficio.impostaStanzaAdiacente(Direzione.SUD, aulaN11);
+		ufficio.impostaStanzaAdiacente(Direzione.OVEST, biblioteca);
+		labIA.impostaStanzaAdiacente(Direzione.NORD, laboratorio);
+		labIA.impostaStanzaAdiacente(Direzione.EST, aulaN10);
+		aulaN18.impostaStanzaAdiacente(Direzione.OVEST, aulaN11);
 
 		/* pone gli attrezzi nelle stanze */
 		aulaN10.addAttrezzo(lanterna);
@@ -65,24 +68,5 @@ public class Labirinto {
 		// il gioco comincia nell'atrio
 		this.stanzaIniziale = atrio;
 		this.stanzaVincente = biblioteca;
-	}
-	
-	public Stanza addStanzaIniziale(Stanza stanzaIniziale) {
-		this.stanzaIniziale = stanzaIniziale;
-		return this.stanzaIniziale;
-	}
-	
-	public Stanza addStanzaVincente(Stanza stanzaVincente) {
-		this.stanzaVincente = stanzaVincente;
-		return this.stanzaVincente;
-	}
-	
- 
-	public Stanza getStanzaIniziale() {
-		return stanzaIniziale;
-	}
-	
-	public Stanza getStanzaVincente() {
-		return stanzaVincente;
 	}
 }

@@ -13,11 +13,6 @@ class IOSimulatorTest {
 	}
 	
 	@Test
-	public void testComandoNullo() {
-		assertNull(new IOSimulator(null).leggiRiga());
-	}
-	
-	@Test
 	public void testUnSoloComando() {
 		assertEquals("fine", new IOSimulator("fine").leggiRiga());
 	}

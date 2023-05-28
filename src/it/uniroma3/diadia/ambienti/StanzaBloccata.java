@@ -1,25 +1,19 @@
 package it.uniroma3.diadia.ambienti;
 
+import lombok.Getter;
+
 public class StanzaBloccata extends Stanza {
-	private String direzioneBloccata;
-	private String attrezzoSbloccante;
+	@Getter private Direzione direzioneBloccata;
+	@Getter private String attrezzoSbloccante;
 	
-	public StanzaBloccata(String nome, String direzioneBloccata, String attrezzoSbloccante) {
+	public StanzaBloccata(String nome, Direzione direzioneBloccata, String attrezzoSbloccante) {
 		super(nome);
 		this.direzioneBloccata = direzioneBloccata;
 		this.attrezzoSbloccante = attrezzoSbloccante;
 	}
 	
-	public String getDirezioneBloccata() {
-		return this.direzioneBloccata;
-	}
-	
-	public String getAttrezzoSbloccante() {
-		return this.attrezzoSbloccante;
-	}
-	
 	@Override
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		if (direzione.equals(this.direzioneBloccata) && !this.hasAttrezzo(attrezzoSbloccante))
 	        return this;
 		return super.getStanzaAdiacente(direzione);
@@ -30,7 +24,7 @@ public class StanzaBloccata extends Stanza {
     	StringBuilder risultato = new StringBuilder();
     	risultato.append("\n* " + super.getNome() + " *");
     	risultato.append("\nUscite: ");
-    	for (String direzione : super.getDirezioni())
+    	for (Direzione direzione : super.getDirezioni())
     	{
     		if (direzione!=null)
     			risultato.append(" " + direzione);

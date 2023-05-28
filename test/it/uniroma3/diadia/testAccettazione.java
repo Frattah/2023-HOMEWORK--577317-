@@ -1,15 +1,21 @@
 package it.uniroma3.diadia;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
-
-import it.uniroma3.diadia.ambienti.*;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.comandi.*;
-import it.uniroma3.diadia.giocatore.Giocatore;
-
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
+import it.uniroma3.diadia.properties.Properties;
 
 class testAccettazione {
 	private Comando[] comandi;
@@ -151,10 +157,10 @@ class testAccettazione {
 				.addStanza("Stanza 2")
 				.addAttrezzo("bomba", 2)
 				.addStanza("Stanza 3")
-				.addAdiacenza("Partenza", "Stanza 1", "sud")
-				.addAdiacenza("Stanza 1", "Stanza 2", "sud")
-				.addAdiacenza("Stanza 2", "Stanza 3", "est")
-				.addAdiacenza("Stanza 3", "Arrivo", "est")
+				.addAdiacenza("Partenza", "Stanza 1", Direzione.SUD)
+				.addAdiacenza("Stanza 1", "Stanza 2", Direzione.SUD)
+				.addAdiacenza("Stanza 2", "Stanza 3", Direzione.EST)
+				.addAdiacenza("Stanza 3", "Arrivo", Direzione.EST)
 				.getLabirinto();
 		this.partita.setLabirinto(lab);
 		setComandi("vai sud", "vai sud", "guarda", "prendi bomba", "vai est",
@@ -211,7 +217,7 @@ class testAccettazione {
 		this.partita.setLabirinto(lab);
 		setComandi("saluta", "interagisci", "interagisci", "interagisci");
 		eseguiComandi(this.partita, comandi);
-		assertEquals(new Giocatore().CFU_INIZIALI - 3, this.partita.getGiocatore().getCfu());
+		assertEquals(Properties.CFU_INIZIALI - 3, this.partita.getGiocatore().getCfu());
 	}
 	
 	@Test
@@ -247,8 +253,8 @@ class testAccettazione {
 				.addStanza("StanzaVuota")
 				.addStanzaVincente("Arrivo")
 				.addAttrezzo("mouse", 1)
-				.addAdiacenza("Partenza", "Arrivo", "nord")
-				.addAdiacenza("Partenza", "StanzaVuota", "sud")
+				.addAdiacenza("Partenza", "Arrivo", Direzione.NORD)
+				.addAdiacenza("Partenza", "StanzaVuota", Direzione.SUD)
 				.getLabirinto();
 		this.partita.setLabirinto(lab);
 		setComandi("interagisci");
@@ -264,8 +270,8 @@ class testAccettazione {
 				.addStanza("StanzaVuota")
 				.addStanzaVincente("Arrivo")
 				.addAttrezzo("mouse", 1)
-				.addAdiacenza("Partenza", "Arrivo", "nord")
-				.addAdiacenza("Partenza", "StanzaVuota", "sud")
+				.addAdiacenza("Partenza", "Arrivo", Direzione.NORD)
+				.addAdiacenza("Partenza", "StanzaVuota", Direzione.SUD)
 				.getLabirinto();
 		this.partita.setLabirinto(lab);
 		setComandi("saluta", "interagisci");
@@ -316,7 +322,7 @@ class testAccettazione {
 		this.partita.setLabirinto(lab);
 		setComandi("prendi osso", "regala osso", "prendi collare");
 		eseguiComandi(this.partita, comandi);
-		assertEquals(new Giocatore().CFU_INIZIALI, this.partita.getGiocatore().getCfu());
+		assertEquals(Properties.CFU_INIZIALI, this.partita.getGiocatore().getCfu());
 		assertTrue(this.partita.getGiocatore().getBorsa().hasAttrezzo("collare"));
 	}
 	
@@ -330,7 +336,7 @@ class testAccettazione {
 		this.partita.setLabirinto(lab);
 		setComandi("prendi bistecca", "regala bistecca", "prendi collare");
 		eseguiComandi(this.partita, comandi);
-		assertEquals(new Giocatore().CFU_INIZIALI - 1, this.partita.getGiocatore().getCfu());
+		assertEquals(Properties.CFU_INIZIALI - 1, this.partita.getGiocatore().getCfu());
 		assertFalse(this.partita.getGiocatore().getBorsa().hasAttrezzo("collare"));
 	}
 	
