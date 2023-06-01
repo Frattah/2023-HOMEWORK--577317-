@@ -2,9 +2,10 @@ package it.uniroma3.diadia.ambienti;
 
 import lombok.Getter;
 
+@Getter
 public class StanzaBloccata extends Stanza {
-	@Getter private Direzione direzioneBloccata;
-	@Getter private String attrezzoSbloccante;
+	private Direzione direzioneBloccata;
+	private String attrezzoSbloccante;
 	
 	public StanzaBloccata(String nome, Direzione direzioneBloccata, String attrezzoSbloccante) {
 		super(nome);

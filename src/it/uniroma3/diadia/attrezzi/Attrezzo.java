@@ -3,6 +3,7 @@ package it.uniroma3.diadia.attrezzi;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * Una semplice classe che modella un attrezzo.
@@ -16,16 +17,10 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
+@Getter
 public class Attrezzo {
 
-	@Getter private String nome;
-	@Getter private int peso;
-
-	/**
-	 * Restituisce una rappresentazione stringa di questo attrezzo
-	 * @return la rappresentazione stringa
-	 */
-	public String toString() {
-		return this.getNome()+" ("+this.getPeso()+"kg)";
-	}
+	private String nome;
+	private int peso;
 }

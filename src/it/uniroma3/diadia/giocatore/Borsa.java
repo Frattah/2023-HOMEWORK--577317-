@@ -2,6 +2,7 @@ package it.uniroma3.diadia.giocatore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,9 +12,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerPesoPoiNome;
 import it.uniroma3.diadia.properties.Properties;
-import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerNome;
 
 /**
  * Classe che modella una borsa.
@@ -28,6 +27,15 @@ import it.uniroma3.diadia.attrezzi.ComparatoreAttrezziPerNome;
 public class Borsa {
 	private Map<String, Attrezzo> attrezzi;
 	private int pesoMax;
+	
+	class ComparatoreAttrezziPerPesoPoiNome implements Comparator<Attrezzo> {
+		@Override
+		public int compare(Attrezzo o1, Attrezzo o2) {
+			if (o1.getPeso() - o2.getPeso() != 0)
+				return o1.getPeso() - o2.getPeso();
+			return o1.getNome().compareTo(o2.getNome());
+		}
+	}
 	
 	public Borsa() {
 		this(Properties.DEFAULT_PESO_MAX_BORSA);
@@ -80,6 +88,12 @@ public class Borsa {
 	}
 	
 	SortedSet<Attrezzo> getContenutoOrdinatoPerNome() {
+		class ComparatoreAttrezziPerNome implements Comparator<Attrezzo>{
+			@Override
+			public int compare(Attrezzo o1, Attrezzo o2) {
+				return o1.getNome().compareTo(o2.getNome());
+			}
+		}
 		final TreeSet<Attrezzo> output = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerNome());
 		output.addAll(this.attrezzi.values());
 		return output;

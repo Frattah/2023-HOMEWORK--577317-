@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class FabbricaDiComandiFisarmonicaTest {
-	private FabbricaDiComandiFisarmonica factory;
+class FabbricaDiComandiRiflessivaTest {
+	private FabbricaDiComandiRiflessiva factory;
 
 	@BeforeEach
 	public void setUp() {
-		factory = new FabbricaDiComandiFisarmonica();
+		factory = new FabbricaDiComandiRiflessiva();
 	}
 	
 	// COMANDI NULLI O VUOTI ##########################################################################################################################
@@ -42,8 +42,8 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoGuardaConParametroSbagliato() {
 		Comando comando = factory.costruisciComando("guarda stanza", null);
-		assertEquals("comando non valido", comando.getNome());
-		assertNull(comando.getParametro());
+		assertEquals("guarda", comando.getNome());
+		assertEquals("stanza", comando.getParametro());
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoFineConParametro() {
 		Comando comando = factory.costruisciComando("fine partita", null);
-		assertEquals("comando non valido", comando.getNome());
+		assertEquals("fine", comando.getNome());
 		assertNull(comando.getParametro());
 	}
 	
@@ -98,7 +98,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoPrendiNessunParametro() {
 		Comando comando = factory.costruisciComando("prendi", null);
-		assertEquals("comando non valido", comando.getNome());
+		assertEquals("prendi", comando.getNome());
 		assertNull(comando.getParametro());
 	}
 	
@@ -121,7 +121,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoPosaNessunParametro() {
 		Comando comando = factory.costruisciComando("posa", null);
-		assertEquals("comando non valido", comando.getNome());
+		assertEquals("posa", comando.getNome());
 		assertNull(comando.getParametro());
 	}
 	
@@ -167,7 +167,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoAiutoConParametro() {
 		Comando comando = factory.costruisciComando("aiuto perfavore", null);
-		assertEquals("comando non valido", comando.getNome());
+		assertEquals("aiuto", comando.getNome());
 		assertNull(comando.getParametro());
 	}
 }

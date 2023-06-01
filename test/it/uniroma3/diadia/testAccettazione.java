@@ -87,7 +87,7 @@ class testAccettazione {
 		setComandi("vai est", "vai nord", "vai sud", "vai est");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
-		assertEquals("aulaN18", partita.getStanzaCorrente().getNome());
+		assertEquals("Aula N18", partita.getStanzaCorrente().getNome());
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ class testAccettazione {
 	public void testPosaOggetto() throws Exception {
 		setComandi("prendi osso", "vai sud", "vai ovest", "posa osso");
 		eseguiComandi(partita, this.comandi);
-		assertEquals("LabIA", partita.getStanzaCorrente().getNome());
+		assertEquals("Laboratorio Campus", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
 	}
 	
@@ -121,7 +121,7 @@ class testAccettazione {
 		setComandi("vai sud", "prendi lanterna", "vai nord", "vai est", "vai est", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Qui c'é buio pesto", partita.getStanzaCorrente().getDescrizione());
-		assertEquals("aulaN18", partita.getStanzaCorrente().getNome());
+		assertEquals("Aula N18", partita.getStanzaCorrente().getNome());
 		setComandi("posa lanterna", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals(partita.getStanzaCorrente().toString(), partita.getStanzaCorrente().getDescrizione());

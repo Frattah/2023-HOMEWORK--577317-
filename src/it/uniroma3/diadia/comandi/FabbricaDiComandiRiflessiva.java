@@ -10,13 +10,15 @@ public class FabbricaDiComandiRiflessiva implements FabbricaDiComandi {
 	@Override
 	public Comando costruisciComando(String istruzione, IO io)  {
 		Comando comando = null;
+		if (istruzione == null)
+			return new ComandoNonValido();
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
 		String parametro = null;
 
 
 		// Gestione casi limite
-		if (istruzione == null || istruzione.equals("")) {
+		if (istruzione.equals("")) {
 			comando = new ComandoNonValido();
 			comando.setIO(io);
 			scannerDiParole.close();

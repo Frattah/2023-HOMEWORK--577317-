@@ -119,6 +119,26 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
+	public LabirintoBuilder setIniziale(String nome) {
+		for (Stanza stanza : this.stanze) {
+			if (stanza.getNome().equals(nome)) {
+				this.stanzaIniziale = stanza;
+				return this;
+			}
+		}
+		return this;
+	}
+	
+	public LabirintoBuilder setVincente(String nome) {
+		for (Stanza stanza : this.stanze) {
+			if (stanza.getNome().equals(nome)) {
+				this.stanzaVincente = stanza;
+				return this;
+			}
+		}
+		return this;
+	}
+	
 	public Labirinto getLabirinto() {
 		Labirinto risultato = new Labirinto();
 		risultato.setStanzaIniziale(this.stanzaIniziale);

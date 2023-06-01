@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 import it.uniroma3.diadia.properties.Properties;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -24,24 +26,21 @@ import lombok.Setter;
  * @version base
 */
 
+@Getter @RequiredArgsConstructor
 public class Stanza {
 	
-	@Getter private String nome;
-    @Getter private Map<String, Attrezzo> attrezzi;
-    @Getter private Map<Direzione, Stanza> stanzeAdiacenti;
-	@Getter private Set<Direzione> direzioni;
-	@Getter @Setter private AbstractPersonaggio personaggio;
+	final private String nome;
+    private Map<String, Attrezzo> attrezzi = new HashMap<String, Attrezzo>();
+    private Map<Direzione, Stanza> stanzeAdiacenti = new HashMap<Direzione, Stanza>();
+	private Set<Direzione> direzioni = new HashSet<Direzione>();
+	@Setter private AbstractPersonaggio personaggio;
 	
-    /**
-     * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
-     * @param nome il nome della stanza
-     */
-    public Stanza(String nome) {
-        this.nome = nome;
-        this.direzioni = new HashSet<Direzione>();
-        this.stanzeAdiacenti = new HashMap<Direzione, Stanza>();
-        this.attrezzi = new HashMap<String, Attrezzo>();
-    }
+	class ComparatoreStanzaPerNumeroAttrezzi implements Comparator<Stanza> {
+		@Override
+		public int compare(Stanza o1, Stanza o2) {
+			return o1.getNumeroAttrezzi() - o2.getNumeroAttrezzi();
+		}
+	}
     
     public int getNumeroStanzeAdiacenti() {
     	return this.direzioni.size();
