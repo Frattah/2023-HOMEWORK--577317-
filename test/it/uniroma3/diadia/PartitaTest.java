@@ -3,48 +3,55 @@ package it.uniroma3.diadia;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.ambienti.Labirinto;
+
 import org.junit.jupiter.api.BeforeEach;
 
 public class PartitaTest {
-	private Partita partitaTest;
+	private Partita partita;
 	
 	@BeforeEach
 	public void SetUp () {
-		partitaTest = new Partita();
+		this.partita = new Partita();
+		this.partita.setLabirinto(Labirinto.newBuilder()
+				.addStanzaIniziale("inizio")
+				.addStanzaVincente("fine")
+				.getLabirinto());
 	}
 	
 	
 	// isFinita
 	@Test
 	public void testIsFinitaConGiocatoreSenzaCfu() {
-		partitaTest.getGiocatore().setCfu(0);
-		assertTrue(partitaTest.isFinita());
+		this.partita.getGiocatore().setCfu(0);
+		assertTrue(this.partita.isFinita());
 	}
 	
 	@Test
 	public void testIsFinitaConStanzaCorrenteUgualeStanzaFinale() {
-		partitaTest.setStanzaCorrente(partitaTest.getLabirinto().getStanzaVincente());
-		assertTrue(partitaTest.isFinita());
+		this.partita.setStanzaCorrente(this.partita.getLabirinto().getStanzaVincente());
+		assertTrue(this.partita.isFinita());
 	}
 	
 	
 	// vinta
 	@Test
 	public void testVintaConStanzaCorrenteDiversaStanzaFinale() {
-		assertFalse(partitaTest.vinta());
+		assertFalse(this.partita.vinta());
 	}
 	
 	// setFinita
 	@Test
 	public void testSetFinitaControlloConIsFinita() {
-		partitaTest.setFinita();
-		assertTrue(partitaTest.isFinita());
+		this.partita.setFinita();
+		assertTrue(this.partita.isFinita());
 	}
 	
 	@Test
 	public void testSetFinitaControlloConVinta() {
-		partitaTest.setFinita();
-		assertFalse(partitaTest.vinta());
+		this.partita.setFinita();
+		assertFalse(this.partita.vinta());
 	}
 	
 	

@@ -1,5 +1,4 @@
 package it.uniroma3.diadia;
-import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
@@ -32,23 +31,19 @@ public class DiaDia {
 	private Partita partita;
 
 	private IO inputOutputManager;
-
-	
-	public DiaDia(Labirinto labirinto, IO io) {
-		this.partita = new Partita(labirinto);
-		this.inputOutputManager = io;
-	}
 	
 	public DiaDia(IO io) {
-		this(new Labirinto(), io);
+		this.partita = new Partita("files/lab.txt");
+		this.inputOutputManager = io;
 	}
 
 	public void gioca() throws Exception {
 		String istruzione; 
 
 		this.inputOutputManager.mostraMessaggio(MESSAGGIO_BENVENUTO);
-		do		
+		do {
 			istruzione = this.inputOutputManager.leggiRiga();
+		}
 		while (!processaIstruzione(istruzione) && !partita.isFinita());
 		if (partita.getGiocatore().getCfu() <= 0)
 			this.inputOutputManager.mostraMessaggio("Hai esaurito i cfu...\n");
@@ -60,6 +55,7 @@ public class DiaDia {
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 * @throws Exception 
+	 * 
 	 */
 	private boolean processaIstruzione(String istruzione) throws Exception {
 		Comando comandoDaEseguire;

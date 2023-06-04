@@ -1,9 +1,6 @@
 package it.uniroma3.diadia.ambienti;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
-import it.uniroma3.diadia.CaricatoreLabirinto;
-import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
@@ -16,24 +13,16 @@ public class Labirinto {
 	Stanza stanzaIniziale;
 	Stanza stanzaVincente;
 	
-	public Labirinto() {
-		CaricatoreLabirinto labLoader = null;
-		try {
-			labLoader = new CaricatoreLabirinto("files/lab.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			labLoader.carica();
-		} catch (FormatoFileNonValidoException e) {
-			e.printStackTrace();
-		}
-		this.stanzaIniziale = labLoader.getStanzaIniziale();
-		this.stanzaVincente = labLoader.getStanzaVincente();
+	private Labirinto() {}
+	
+	public static LabirintoBuilder newBuilder() {
+		return new LabirintoBuilder();
 	}
 	
-	public class LabirintoBuilder {
+	public static class LabirintoBuilder {
 		private LinkedList<Stanza> stanze;
+		Stanza stanzaIniziale;
+		Stanza stanzaVincente;
 		
 		public LabirintoBuilder() {
 			this.stanze = new LinkedList<>();
@@ -48,12 +37,22 @@ public class Labirinto {
 			return this;
 		}
 		
+		public LabirintoBuilder setStanzaIniziale(String nome) {
+			this.stanzaIniziale = this.getStanza(nome);
+			return this;
+		}
+		
 		public LabirintoBuilder addStanzaVincente(String nome) {
 			Stanza nuovaStanza = new Stanza(nome);
 			if (stanzaVincente != null)
 				this.stanze.remove(stanzaVincente);
 			this.stanze.addLast(nuovaStanza);
 			stanzaVincente = nuovaStanza;
+			return this;
+		}
+		
+		public LabirintoBuilder setStanzaVincente(String nome) {
+			this.stanzaVincente = this.getStanza(nome);
 			return this;
 		}
 		
@@ -114,13 +113,39 @@ public class Labirinto {
 			return this;
 		}
 		
+		public LabirintoBuilder addAttrezzo(String nome, int peso, String stanza) {
+			Attrezzo nuovoAttrezzo = new Attrezzo(nome, peso);
+			this.getStanza(stanza).addAttrezzo(nuovoAttrezzo);
+			return this;
+		}
+		
+		/*
+		 * 	Metodi per l'aggiunta di un personaggio cane, nel primo caso viene specificata la stanza,
+		 *  nel secondo viene posta di default nell'ultima stanza aggiunta al labirinto
+		 * 
+		 */
 		public LabirintoBuilder addCane(String nome, String presentazione, Attrezzo custodito) {
 			this.stanze.getLast().setPersonaggio(new Cane(nome, presentazione, custodito));
 			return this;
 		}
 		
-		public LabirintoBuilder addCane(String nome, String presentazione ) {
+		public LabirintoBuilder addCane(String nome, String presentazione, String stanza) {
+			this.getStanza(stanza).setPersonaggio(new Cane(nome, presentazione));
+			return this;
+		}
+		
+		public LabirintoBuilder addCane(String nome, String presentazione) {
 			this.stanze.getLast().setPersonaggio(new Cane(nome, presentazione));
+			return this;
+		}
+		
+		/*
+		 * 	Metodi per l'aggiunta di un personaggio strega, nel primo caso viene specificata la stanza,
+		 *  nel secondo viene posta di default nell'ultima stanza aggiunta al labirinto
+		 * 
+		 */
+		public LabirintoBuilder addStrega(String nome, String presentazione, String stanza) {
+			this.getStanza(stanza).setPersonaggio(new Strega(nome, presentazione));
 			return this;
 		}
 		
@@ -129,14 +154,42 @@ public class Labirinto {
 			return this;
 		}
 		
+		/*
+		 * 	Metodi per l'aggiunta di un personaggio mago, nel primo caso viene specificata la stanza,
+		 *  nel secondo viene posta di default nell'ultima stanza aggiunta al labirinto
+		 * 
+		 */
+		public LabirintoBuilder addMago(String nome, String presentazione, Attrezzo daRegalare, String stanza) {
+			this.getStanza(stanza).setPersonaggio(new Mago(nome, presentazione));
+			return this;
+		}
+		
 		public LabirintoBuilder addMago(String nome, String presentazione, Attrezzo daRegalare) {
 			this.stanze.getLast().setPersonaggio(new Mago(nome, presentazione, daRegalare));
 			return this;
 		}
 		
-		public LabirintoBuilder addMago(String nome, String presentazione) {
-			this.stanze.getLast().setPersonaggio(new Mago(nome, presentazione));
-			return this;
+		public boolean existStanza(String nome) {
+			for (Stanza stanza : this.stanze) {
+				if (stanza.getNome().equals(nome))
+					return true;
+			}
+			return false;
+		}
+		
+		private Stanza getStanza(String nomeStanzaCercata) {
+			for (Stanza stanza : stanze) {
+				if (stanza.getNome().equals(nomeStanzaCercata))
+					return stanza;
+			}
+			return this.stanze.getLast();
+		}
+		
+		public Labirinto getLabirinto() {
+			Labirinto lab = new Labirinto();
+			lab.stanzaIniziale = this.stanzaIniziale;
+			lab.stanzaVincente = this.stanzaVincente;
+			return lab;
 		}
 	}
 }

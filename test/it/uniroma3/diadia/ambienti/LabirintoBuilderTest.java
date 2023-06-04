@@ -13,7 +13,7 @@ class LabirintoBuilderTest {
 
 	@Test
 	public void testMonolocale() {
-		Labirinto monolocale = new LabirintoBuilder()
+		Labirinto monolocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("salotto")
 				.getLabirinto();
@@ -23,7 +23,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testBilocale() {
-		Labirinto bilocale = new LabirintoBuilder()
+		Labirinto bilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addAdiacenza("salotto", "camera", Direzione.NORD)
@@ -35,7 +35,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testBilocaleAttrezzo() {
-		Labirinto bilocale = new LabirintoBuilder()
+		Labirinto bilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addAttrezzo("letto", 10)
@@ -46,7 +46,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testTrilocaleAttrezzo() {
-		Labirinto trilocale = new LabirintoBuilder()
+		Labirinto trilocale = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanza("cucina")
 				.addAttrezzo("pentola", 1)
@@ -60,7 +60,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testConStanzaMagica() {
-		Labirinto labirintoTest = new LabirintoBuilder()
+		Labirinto labirintoTest = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addStanzaMagica("bagno")
@@ -80,7 +80,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testConStanzaBloccata() {
-		Labirinto labirintoTest = new LabirintoBuilder()
+		Labirinto labirintoTest = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addStanzaBloccata("bagno", Direzione.OVEST, "chiave")
@@ -95,7 +95,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testConStanzaBuia() {
-		Labirinto labirintoTest = new LabirintoBuilder()
+		Labirinto labirintoTest = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addStanzaVincente("camera")
 				.addStanzaBuia("cantina", "torcia")
@@ -110,7 +110,7 @@ class LabirintoBuilderTest {
 	
 	@Test
 	public void testConPersonaggio() {
-		Labirinto labirintoTest = new LabirintoBuilder()
+		Labirinto labirintoTest = Labirinto.newBuilder()
 				.addStanzaIniziale("salotto")
 				.addCane("Jeff", null)
 				.getLabirinto();

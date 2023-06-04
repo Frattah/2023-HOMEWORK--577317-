@@ -1,4 +1,6 @@
 package it.uniroma3.diadia;
+import java.io.FileNotFoundException;
+
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.giocatore.Giocatore;
 import lombok.Getter;
@@ -18,16 +20,24 @@ public class Partita {
 	@Getter @Setter private Stanza stanzaCorrente;
 	private boolean finita;
 	
-	// MGC
-	public Partita(Labirinto labirinto) {
-		this.labirinto = labirinto;
+	public Partita() {
 		this.giocatore = new Giocatore();
-		this.finita = false;
-		this.stanzaCorrente = labirinto.getStanzaIniziale();
 	}
 	
-	public Partita(){
-		this(new Labirinto());
+	public Partita(String filePath){
+		CaricatoreLabirinto labLoader = null;
+		try {
+			labLoader = new CaricatoreLabirinto(filePath);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			labLoader.carica();
+		} catch (FormatoFileNonValidoException e) {
+			e.printStackTrace();
+		}
+		this.giocatore = new Giocatore();
+		this.setLabirinto(labLoader.getLabirinto());
 	}
 	
 	public void setLabirinto(Labirinto labirinto) {

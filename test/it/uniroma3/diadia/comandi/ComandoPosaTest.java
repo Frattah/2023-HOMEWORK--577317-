@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 class ComandoPosaTest {
@@ -20,27 +21,36 @@ class ComandoPosaTest {
 
 	@Test
 	public void testParametroNullo() {
+		this.partita.setLabirinto(Labirinto.newBuilder()
+				.addStanzaIniziale("inizio")
+				.getLabirinto());
 		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("granata", 1));
-		command.esegui(this.partita);
-		assertEquals(command.getParametro(), null);
-		assertFalse(partita.getGiocatore().getBorsa().isEmpty());
-		assertNotNull(partita.getStanzaCorrente().getAttrezzi().get("osso"));
+		this.command.esegui(this.partita);
+		assertNull(this.command.getParametro());
+		assertFalse(this.partita.getGiocatore().getBorsa().isEmpty());
+		assertTrue(this.partita.getStanzaCorrente().getAttrezzi().isEmpty());
 	}
 	@Test
 	public void testAttrezzoInesistente() {
-		command.setParametro("granata");
-		command.esegui(this.partita);
-		assertFalse(partita.getStanzaCorrente().hasAttrezzo("granata"));
-		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
+		this.partita.setLabirinto(Labirinto.newBuilder()
+				.addStanzaIniziale("inizio")
+				.getLabirinto());
+		this.command.setParametro("granata");
+		this.command.esegui(this.partita);
+		assertFalse(this.partita.getStanzaCorrente().hasAttrezzo("granata"));
+		assertTrue(this.partita.getGiocatore().getBorsa().isEmpty());
 	}
 	
 	@Test
 	public void testAttrezzoValido() {
+		this.partita.setLabirinto(Labirinto.newBuilder()
+				.addStanzaIniziale("inizio")
+				.getLabirinto());
 		this.partita.getGiocatore().getBorsa().addAttrezzo(new Attrezzo("granata", 1));
-		command.setParametro("granata");
-		command.esegui(this.partita);
-		assertTrue(partita.getStanzaCorrente().hasAttrezzo("granata"));
-		assertFalse(partita.getGiocatore().getBorsa().hasAttrezzo("granata"));
+		this.command.setParametro("granata");
+		this.command.esegui(this.partita);
+		assertTrue(this.partita.getStanzaCorrente().hasAttrezzo("granata"));
+		assertFalse(this.partita.getGiocatore().getBorsa().hasAttrezzo("granata"));
 	}
 
 }

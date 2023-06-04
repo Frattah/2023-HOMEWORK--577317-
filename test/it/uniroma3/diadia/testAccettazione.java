@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
@@ -23,7 +22,7 @@ class testAccettazione {
 	
 	@BeforeEach
 	public void setUp() {
-		partita = new Partita();
+		partita = new Partita("files/lab.txt");
 	}
 
 	// METODI D'ACCETTAZIONE ###########################################################################################################
@@ -47,9 +46,9 @@ class testAccettazione {
 	
 	@Test
 	public void testComandiNonValidi() throws Exception {
-		setComandi("vai nord-est", "vai sud-ovest", "vai a destra e a sinistra",
-					"saltella", "aiuto", "finE", "prendi ossobuco", "prendi osso bello",
-					"vai sud ovest", "posa missile");
+		setComandi("vai a destra e a sinistra",
+					"saltella", "aiuto", "finE", "prendi ossobuco",
+					"vai sud-ovest", "posa missile");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Atrio", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
@@ -150,7 +149,7 @@ class testAccettazione {
 	
 	@Test
 	public void testConLabirintoBuilder() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addStanzaVincente("Arrivo")
 				.addStanza("Stanza 1")
@@ -172,7 +171,7 @@ class testAccettazione {
 	
 	@Test
 	public void testSalutaMago() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addMago("Gino", "il mago biricchino", new Attrezzo("bomba atomica", 10))
 				.addAttrezzo("roncola", 3)
@@ -186,7 +185,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciMagoNonSalutato() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addMago("Gino", "il mago biricchino", new Attrezzo("atomica", 5))
 				.getLabirinto();
@@ -198,7 +197,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciMagoSalutato() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addMago("Gino", "il mago biricchino", new Attrezzo("atomica", 5))
 				.getLabirinto();
@@ -210,7 +209,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciCane() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addCane("Spike", "il cagnaccio")
 				.getLabirinto();
@@ -222,7 +221,7 @@ class testAccettazione {
 	
 	@Test
 	public void testMortePerCane() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addCane("Spike", "il cagnaccio")
 				.getLabirinto();
@@ -235,7 +234,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciStregaMonolocale() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Monolocale")
 				.addStrega("Gertrude", "la vecchia")
 				.getLabirinto();
@@ -247,7 +246,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciStregaNonSalutata() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addStrega("Gertrude", "la vecchia")
 				.addStanza("StanzaVuota")
@@ -264,7 +263,7 @@ class testAccettazione {
 	
 	@Test
 	public void testInteragisciStregaSalutata() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addStrega("Gertrude", "la vecchia")
 				.addStanza("StanzaVuota")
@@ -281,7 +280,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRegalaMagoNonSalutato() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addAttrezzo("dono", 2)
 				.addMago("Gino", "il mago biricchino", null)
@@ -297,7 +296,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRegalaMagoSalutato() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addAttrezzo("dono", 2)
 				.addMago("Gino", "il mago biricchino", null)
@@ -314,7 +313,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRegalaOssoCane() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addAttrezzo("osso", 1)
 				.addCane("Spike", "il cagnaccio", new Attrezzo("collare", 2))
@@ -328,7 +327,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRegalaSbagliatoCane() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addAttrezzo("bistecca", 1)
 				.addCane("Spike", "il cagnaccio", new Attrezzo("collare", 2))
@@ -342,7 +341,7 @@ class testAccettazione {
 	
 	@Test
 	public void testRegalaStrega() throws Exception {
-		Labirinto lab = new LabirintoBuilder()
+		Labirinto lab = Labirinto.newBuilder()
 				.addStanzaIniziale("Partenza")
 				.addAttrezzo("anello", 1)
 				.addStrega("Racchia", "la megera")
