@@ -39,7 +39,7 @@ class ComandoVaiTest {
 	public void testDirezioneValida() {
 		command.setParametro("sud");
 		command.esegui(partita);
-		assertEquals(partita.getStanzaCorrente().getNome(), "Aula N10");
+		assertEquals(partita.getStanzaCorrente().getNome(), "N10");
 	}
 	
 	@Test

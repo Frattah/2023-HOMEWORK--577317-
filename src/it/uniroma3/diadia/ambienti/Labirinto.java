@@ -1,6 +1,9 @@
 package it.uniroma3.diadia.ambienti;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
+import it.uniroma3.diadia.CaricatoreLabirinto;
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.personaggi.Cane;
 import it.uniroma3.diadia.personaggi.Mago;
@@ -14,40 +17,19 @@ public class Labirinto {
 	Stanza stanzaVincente;
 	
 	public Labirinto() {
-		LabirintoBuilder lab = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
-				.addAttrezzo("osso", 1)
-				.addStanzaVincente("Biblioteca")
-				.addStanza("Aula N11")
-				.addCane("Jeff", null)
-				.addStanza("Aula N10")
-				.addAttrezzo("lanterna", 3)
-				.addStanza("Laboratorio Campus")
-				.addAttrezzo("osso", 1)
-				.addAttrezzo("chiave", 1)
-				.addStanzaBuia("Aula N18", "lanterna")
-				.addStanzaMagica("LabIA")
-				.addStrega("Varana", null)
-				.addStanzaBloccata("Ufficio", Direzione.OVEST, "chiave")
-				.addMago("Gandalf", null, new Attrezzo("lanciafiamme", 6))
-				.addAdiacenza("Atrio", "Biblioteca", Direzione.NORD)
-				.addAdiacenza("Atrio", "Aula N11", Direzione.EST)
-				.addAdiacenza("Atrio", "Aula N10", Direzione.SUD)
-				.addAdiacenza("Atrio", "Laboratorio Campus", Direzione.OVEST)
-				.addAdiacenza("Biblioteca", "Atrio", Direzione.SUD)
-				.addAdiacenza("Biblioteca", "Ufficio", Direzione.EST)
-				.addAdiacenza("Aula N11", "Ufficio", Direzione.NORD)
-				.addAdiacenza("Aula N11", "Aula N18", Direzione.EST)
-				.addAdiacenza("Aula N11", "Atrio", Direzione.OVEST)
-				.addAdiacenza("Aula N10", "Atrio", Direzione.NORD)
-				.addAdiacenza("Aula N10", "Laboratorio Campus", Direzione.OVEST)
-				.addAdiacenza("Laboratorio Campus", "Atrio", Direzione.EST)
-				.addAdiacenza("Laboratorio Campus", "LabIA", Direzione.SUD)
-				.addAdiacenza("Ufficio", "Aula N11", Direzione.SUD)
-				.addAdiacenza("Ufficio", "Biblioteca", Direzione.OVEST)
-				.addAdiacenza("LabIA", "Laboratorio Campus", Direzione.NORD)
-				.addAdiacenza("LabIA", "Aula N10", Direzione.EST)
-				.addAdiacenza("Aula N18", "Aula N11", Direzione.OVEST);
+		CaricatoreLabirinto labLoader = null;
+		try {
+			labLoader = new CaricatoreLabirinto("files/lab.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			labLoader.carica();
+		} catch (FormatoFileNonValidoException e) {
+			e.printStackTrace();
+		}
+		this.stanzaIniziale = labLoader.getStanzaIniziale();
+		this.stanzaVincente = labLoader.getStanzaVincente();
 	}
 	
 	public class LabirintoBuilder {

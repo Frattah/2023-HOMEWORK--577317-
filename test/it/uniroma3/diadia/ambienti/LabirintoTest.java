@@ -44,7 +44,7 @@ class LabirintoTest {
 	
 	@Test
 	void testAtrioAdiacenteAulaN10() {
-		assertEquals("Aula N11", labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.EST).getNome(), "L'atrio non è adiacente all'aula N11 da est");
+		assertEquals("N11", labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.EST).getNome(), "L'atrio non è adiacente all'aula N11 da est");
 	}
 	
 	@Test

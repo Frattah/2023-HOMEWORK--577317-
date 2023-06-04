@@ -1,0 +1,11 @@
+Stanze: Atrio, Biblioteca, N11, N10, CampusLab
+Stanze magiche: LabIA
+Stanze buie: N18 lanterna
+Stanze bloccate: Ufficio ovest chiave
+Maghi: Gandalf lanciafiamme 4 Ufficio
+Streghe: Varana CampusLab
+Cani: Spike N11
+Inizio: Atrio
+Vincente: Biblioteca
+Attrezzi: osso 1 Atrio, chiave 1 CampusLab, lanterna 3 N10
+Uscite: Atrio nord Biblioteca, Atrio est N11, Atrio sud N10, Atrio ovest CampusLab, Biblioteca sud Atrio, N11 ovest Atrio, N10 nord Atrio, N10 ovest LabIA, CampusLab est Atrio, CampusLab sud LabIA, LabIA nord CampusLab, LabIA est N10, N11 sud N18, N18 nord N11, N11 nord Ufficio, Ufficio sud N11, Ufficio ovest Biblioteca, Biblioteca est Ufficio  

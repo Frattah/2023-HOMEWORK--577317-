@@ -84,17 +84,17 @@ class testAccettazione {
 	
 	@Test
 	public void testMovimento() throws Exception {
-		setComandi("vai est", "vai nord", "vai sud", "vai est");
+		setComandi("vai est", "vai nord", "vai sud", "vai sud");
 		eseguiComandi(partita, this.comandi);
 		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
-		assertEquals("Aula N18", partita.getStanzaCorrente().getNome());
+		assertEquals("N18", partita.getStanzaCorrente().getNome());
 	}
 	
 	@Test
 	public void testRaccoltaOggetto() throws Exception {
 		setComandi("vai sud", "vai ovest", "vai nord", "prendi chiave");
 		eseguiComandi(partita, this.comandi);
-		assertEquals("Laboratorio Campus", partita.getStanzaCorrente().getNome());
+		assertEquals("CampusLab", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo("chiave"));
 	}
 	
@@ -102,7 +102,7 @@ class testAccettazione {
 	public void testPosaOggetto() throws Exception {
 		setComandi("prendi osso", "vai sud", "vai ovest", "posa osso");
 		eseguiComandi(partita, this.comandi);
-		assertEquals("Laboratorio Campus", partita.getStanzaCorrente().getNome());
+		assertEquals("LabIA", partita.getStanzaCorrente().getNome());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
 	}
 	
@@ -118,10 +118,10 @@ class testAccettazione {
 	
 	@Test
 	public void testIlluminazioneAulaN18() throws Exception {
-		setComandi("vai sud", "prendi lanterna", "vai nord", "vai est", "vai est", "guarda");
+		setComandi("vai sud", "prendi lanterna", "vai nord", "vai est", "vai sud", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals("Qui c'é buio pesto", partita.getStanzaCorrente().getDescrizione());
-		assertEquals("Aula N18", partita.getStanzaCorrente().getNome());
+		assertEquals("N18", partita.getStanzaCorrente().getNome());
 		setComandi("posa lanterna", "guarda");
 		eseguiComandi(partita, this.comandi);
 		assertEquals(partita.getStanzaCorrente().toString(), partita.getStanzaCorrente().getDescrizione());
