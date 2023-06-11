@@ -1,4 +1,6 @@
 package it.uniroma3.diadia;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
@@ -37,14 +39,16 @@ public class DiaDia {
 		this.inputOutputManager = io;
 	}
 
-	public void gioca() throws Exception {
+	public void gioca() {
 		String istruzione; 
+		Scanner scanner = new Scanner(System.in);
 
 		this.inputOutputManager.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do {
-			istruzione = this.inputOutputManager.leggiRiga();
+			istruzione = this.inputOutputManager.leggiRiga(scanner);
 		}
 		while (!processaIstruzione(istruzione) && !partita.isFinita());
+		scanner.close();
 		if (partita.getGiocatore().getCfu() <= 0)
 			this.inputOutputManager.mostraMessaggio("Hai esaurito i cfu...\n");
 	}   
@@ -57,7 +61,7 @@ public class DiaDia {
 	 * @throws Exception 
 	 * 
 	 */
-	private boolean processaIstruzione(String istruzione) throws Exception {
+	private boolean processaIstruzione(String istruzione)  {
 		Comando comandoDaEseguire;
 		FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
 		
@@ -70,7 +74,7 @@ public class DiaDia {
 			return false;
 	}   
 
-	public static void main(String[] argc) throws Exception {
+	public static void main(String[] argc) {
 		IO io = new IOConsole();
 		DiaDia gioco = new DiaDia(io);
 		gioco.gioca();

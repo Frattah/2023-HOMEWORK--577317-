@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class IOConsole implements IO{
+public class IOConsole implements IO {
 	private Scanner scanner;
 	
 	@Override
@@ -14,9 +14,12 @@ public class IOConsole implements IO{
 	}
 	
 	@Override
+	public String leggiRiga(Scanner scannerDiLinee) {
+		return scannerDiLinee.nextLine();
+	}
+
+	@Override
 	public String leggiRiga() {
-		Scanner scannerDiLinee = new Scanner(System.in);
-		String riga = scannerDiLinee.nextLine();
-		return riga;
+		return null;
 	}
 }

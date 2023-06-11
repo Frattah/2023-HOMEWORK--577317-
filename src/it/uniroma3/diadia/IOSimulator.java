@@ -3,6 +3,7 @@ package it.uniroma3.diadia;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class IOSimulator implements IO {
 	private List<String> comandiLetti;
@@ -30,5 +31,10 @@ public class IOSimulator implements IO {
 	@Override
 	public void mostraMessaggio(String messaggio) {
 		return ;
+	}
+
+	@Override
+	public String leggiRiga(Scanner scannerDiLinee) {
+		return null;
 	}
 }
